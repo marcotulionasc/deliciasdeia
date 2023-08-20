@@ -70,7 +70,7 @@ Este projeto foi desenvolvido por Marco Nascimento. Contribuições são bem-vin
 
 ## Contato
 
-Se você tiver alguma dúvida ou precisar de suporte, entre em contato com Marco Nascimento pelo e-mail marco@example.com.
+Se você tiver alguma dúvida ou precisar de suporte, entre em contato com Marco Nascimento pelo e-mail marcotulionascimento@outlook.com.
 
 Aproveite as delícias e a experiência do website "Delícias da Deia"!
 
