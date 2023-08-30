@@ -36,7 +36,11 @@ delicias-da-deia/
 |-- class.html
 |-- contact.html
 |-- shop-details.html
+<<<<<<< HEAD
 |-- shop.php
+=======
+|-- shop.html
+>>>>>>> 8c37627f77742ee25e86f714430b269105df3084
 |-- shopping-cart.html
 |-- wisslist.html
 |-- css/
