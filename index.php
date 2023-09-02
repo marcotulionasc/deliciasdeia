@@ -26,17 +26,18 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js\providers\providerIndex.js"></script> <!-- providerIndex -->
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-    <!-- Page Preloder 
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>-->
 
-    <!-- Offcanvas Menu Begin -->
+    <!-- Here is a page Preloder, this implementation is optional -->
+    <!-- Page Preloder <div id="preloder"> <div class="loader"></div> </div> -->
+
+    <!-- Logo of website -->
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
  
@@ -48,8 +49,9 @@
 
         </div>
     </div>
-    <!-- Offcanvas Menu End -->
-     <!-- Header Section Begin -->
+    <!-- End Logo of website -->
+
+     <!-- Navigation -->
      <header class="header">
         <div class="header__top">
             <div class="container">
@@ -76,20 +78,8 @@
                     <nav class="header__menu mobile-menu">
                         <ul>
                             <li class="active"><a href="./index.php">Início</a></li>
-                            <li><a href="./about.html">Sobre</a></li>
                             <li><a href="./shop.php">Loja</a></li>
-
-                            <!-- Olhar o que vai aproveitar nisso, mas na minha opnião não precisa -->
-                            <li><a href="#">Páginas</a>
-                                <ul class="dropdown">
-                      
-                                    <li><a href="./shoping-cart.html">Carrinho</a></li>
-                                    <li><a href="./checkout.html">Conferir</a></li>
-                                    <li><a href="./wisslist.html">Favoritos</a></li>
-                                    <li><a href="./class.html">Aulas</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.html">Postagens</a></li>
+                            <li><a href="./shoping-cart.html">Carrinho</a></li>
                             <li><a href="./contact.html">Contato</a></li>
                         </ul>
                     </nav>
@@ -97,7 +87,7 @@
             </div>
         </div>
     </header>
-    <!-- Header Section End -->
+    <!-- End Navigation -->
 
     <!-- Hero Section Begin -->
     <section class="hero">
@@ -197,19 +187,19 @@
                             <h5>Chocolate</h5>
                         </div>
                     </div>
-                    <div class="categories__item" onclick="categoryClicked('none')">
+                    <div class="categories__item" onclick="categoryClicked('Doces')">
                         <div class="categories__item__icon">
                             <span class="flaticon-030-cupcake-2"></span>
                             <h5>Doces</h5>
                         </div>
                     </div>
-                    <div class="categories__item" onclick="categoryClicked('none')">
+                    <div class="categories__item" onclick="categoryClicked('Salgados')">
                         <div class="categories__item__icon">
                             <span class="flaticon-006-macarons"></span>
                             <h5>Salgados</h5>
                         </div>
                     </div>
-                    <div class="categories__item"onclick="categoryClicked('none')">
+                    <div class="categories__item"onclick="categoryClicked('Tortas')">
                         <div class="categories__item__icon">
                             <span class="flaticon-006-macarons"></span>
                             <h5>Tortas</h5>
@@ -217,43 +207,10 @@
                     </div>
                 </div>
             </div>
-       
-            <script>
-        
-        // Função que será chamada quando um item de categoria for clicado
-       // Função que será chamada quando um item de categoria for clicado
-function categoryClicked(categoryName) {
-    var phpFile = ""; // Nome do arquivo PHP depende da categoria selecionada
-
-    if (categoryName == 'Bolo') {
-        phpFile = "displayCategoryBolo.php";
-    } else if (categoryName == 'Sorvete') {
-        phpFile = "displayCategorySorvete.php";
-    } else if (categoryName == 'Chocolate') {
-        phpFile = "displayCategoryChocolate.php";
-    } else {
-        alert("Categoria desconhecida.");
-        return;
-    }
-    console.log("PHP file to load: "+ phpFile);
-
-    $.ajax({
-        url: "php/" + phpFile,
-        method: "GET",
-        success: function(response) {
-            console.log(response);
-            $("#dataContainer").html(response);
-        },
-        error: function() {
-            alert("Erro ao carregar os dados do PHP.");
-        }
-    });
-}
 
     
-    </script>
-
-        <div id="dataContainer"></div>
+        <!-- Utilizando o Ajax para pegar a rota correta -->
+        <div id="dataIndex"></div>
 
        
         </div>
@@ -262,150 +219,7 @@ function categoryClicked(categoryName) {
     </div> 
     <!-- Categories Section End -->
 
-    <!-- Testimonial Section Begin -->
-    <section class="testimonial spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="section-title">
-                        <span>Depoimentos</span>
-                        <h2>Nossos clientes</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="testimonial__slider owl-carousel">
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__author">
-                                <div class="testimonial__author__pic">
-                                    <img src="img/testimonial/ta-1.jpg" alt="">
-                                </div>
-                                <div class="testimonial__author__text">
-                                    <h5>Isabella Mendes</h5>
-                                    <span>São Paulo</span>
-                                </div>
-                            </div>
-                            <div class="rating">
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star-half_alt"></span>
-                            </div>
-                            <p>Cada doce é uma obra-prima de sabor. Uma experiência única que aquece o coração.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__author">
-                                <div class="testimonial__author__pic">
-                                    <img src="img/testimonial/ta-2.jpg" alt="">
-                                </div>
-                                <div class="testimonial__author__text">
-                                    <h5>Lucas Oliveira</h5>
-                                    <span>Rio de Janeiro</span>
-                                </div>
-                            </div>
-                            <div class="rating">
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star-half_alt"></span>
-                            </div>
-                            <p>A qualidade e variedade são surpreendentes. Garantia de sobremesas perfeitas.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__author">
-                                <div class="testimonial__author__pic">
-                                    <img src="img/testimonial/ta-1.jpg" alt="">
-                                </div>
-                                <div class="testimonial__author__text">
-                                    <h5>Sofia Pereira</h5>
-                                    <span>Belo Horizonte</span>
-                                </div>
-                            </div>
-                            <div class="rating">
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star-half_alt"></span>
-                            </div>
-                            <p>Doces que derretem na boca, verdadeiras obras-primas açucaradas!</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__author">
-                                <div class="testimonial__author__pic">
-                                    <img src="img/testimonial/ta-2.jpg" alt="">
-                                </div>
-                                <div class="testimonial__author__text">
-                                    <h5>Rafael Costa</h5>
-                                    <span>Curitiba</span>
-                                </div>
-                            </div>
-                            <div class="rating">
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star-half_alt"></span>
-                            </div>
-                            <p>Criatividade nos sabores e qualidade impressionantes. Sempre ansioso por mais!</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__author">
-                                <div class="testimonial__author__pic">
-                                    <img src="img/testimonial/ta-1.jpg" alt="">
-                                </div>
-                                <div class="testimonial__author__text">
-                                    <h5>Ana Silva</h5>
-                                    <span>Brasília</span>
-                                </div>
-                            </div>
-                            <div class="rating">
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star-half_alt"></span>
-                            </div>
-                            <p>Essa doceria é um tesouro de sabores. Cada mordida é uma viagem gastronômica incrível!</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__author">
-                                <div class="testimonial__author__pic">
-                                    <img src="img/testimonial/ta-2.jpg" alt="">
-                                </div>
-                                <div class="testimonial__author__text">
-                                    <h5>Pedro Santos</h5>
-                                    <span>Salvador</span>
-                                </div>
-                            </div>
-                            <div class="rating">
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star"></span>
-                                <span class="icon_star-half_alt"></span>
-                            </div>
-                            <p>Os doces dessa doceria são simplesmente irresistíveis. Uma experiência doce que nunca decepciona!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Testimonial Section End -->
+   
 
     <!-- Instagram Section Begin -->
     <section class="instagram spad">
@@ -459,7 +273,7 @@ function categoryClicked(categoryName) {
     </section>
     <!-- Instagram Section End -->
 
-    <!-- Map Begin -->
+    <!-- Map Begin 
     <div class="map">
         <div class="container">
             <div class="row">
@@ -486,11 +300,8 @@ function categoryClicked(categoryName) {
 
         </div>
     </div>
-    <!-- Map End -->
-    <br>
-    <br>
-    <br>
-    <br>
+     Map End -->
+    
     <!-- Footer Section Begin -->
     <footer class="footer set-bg" data-setbg="img/footer-bg.jpg">
         <div class="container">
@@ -579,6 +390,8 @@ function categoryClicked(categoryName) {
 <script src="js/jquery.nicescroll.min.js"></script>
 <script src="js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js\providers\providerIndex.js"></script> <!-- providerIndex -->
 </body>
 
 </html>
