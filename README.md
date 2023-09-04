@@ -9,6 +9,9 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 - HTML
 - CSS
 - JavaScript
+- PHP
+- SCSSs
+- MySQL
 
 ## Funcionalidades Principais
 
@@ -29,20 +32,10 @@ O website "Delícias da Deia" possui as seguintes funcionalidades principais:
 A estrutura do projeto é organizada da seguinte forma:
 
 delicias-da-deia/
-|-- index.html
-|-- blog-details.html
-|-- blog.html
-|-- checkout.html
-|-- class.html
-|-- contact.html
-|-- shop-details.html
-<<<<<<< HEAD
+|-- index.php
 |-- shop.php
-=======
-|-- shop.html
->>>>>>> 8c37627f77742ee25e86f714430b269105df3084
-|-- shopping-cart.html
-|-- wisslist.html
+|-- shop-details.html
+|-- shoping-cart.html
 |-- css/
 |   |-- style.css
 |-- js/
@@ -66,11 +59,14 @@ delicias-da-deia/
 Para executar o projeto localmente, siga estas etapas:
 
 1. Clone ou faça o download deste repositório para o seu computador.
-2. Abra o arquivo `index.html` no seu navegador para acessar a página inicial.
+2. Tenha o Xampp ou algo que você possa iniciar o Apache para rodá-lo
+3. Faça download do arquivo do banco de dados deia.sql. Certifique-se que esteja utilizando o MySQL
+4. Salve o arquivo `index.php` na pasta htdocs (Utilize o XAMPP para isso).
+5. Digite a URL no navegador https://localhost/deliciasdeia
 
 ## Contribuição
 
-Este projeto foi desenvolvido por Marco Nascimento. Contribuições são bem-vindas! Se você encontrar algum problema ou tiver sugestões de melhoria, sinta-se à vontade para abrir um problema ou enviar um pull request.
+Este projeto foi desenvolvido por Marco Nascimento. Contribuições são bem-vindas! Se você encontrar algum problema ou tiver sugestões de melhoria, sinta-se à vontade para abrir um problema ou enviar um git pull origin main --allow-unrelated-histories. Lembre-se de substituir origin pela seguinte URL: https://github.com/marcotulionasc/deliciasdeia.git
 
 ## Contato
 
