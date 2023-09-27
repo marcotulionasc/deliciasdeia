@@ -1,6 +1,6 @@
 function categoryClicked(categoryName) {
     $.ajax({
-        url: "php/indexProducts/Index.php",
+        url: "Index.php",
         method: "GET",
         data: { category: categoryName },
         success: function(response) {
