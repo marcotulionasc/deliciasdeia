@@ -9,4 +9,12 @@ $conn = new mysqli($host, $db_user, $db_pass, $db_name);
 if ($conn->connect_error) {
     die("Erro na conexão: " . $conn->connect_error);
 }
+
+// Verificar se a conexão está funcionando
+if ($conn->ping()) {
+    echo "Conexão bem-sucedida!";
+} else {
+    echo "A conexão não está funcionando.";
+}
+
 ?>

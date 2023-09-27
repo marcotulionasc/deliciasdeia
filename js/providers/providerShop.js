@@ -2,7 +2,7 @@ $(document).ready(function() {
     // Defina a função para a solicitação AJAX
     function fetchProducts() {
         $.ajax({
-            url: "Products.php",
+            url: "api/Products.php",
             method: "GET",
             success: function(response) {
                 $("#dataShop").html(response);
