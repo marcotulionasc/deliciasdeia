@@ -6,7 +6,7 @@ if (isset($_GET['category'])) {
 
     $query = "SELECT * FROM Products WHERE active=1 and categoryName = ?";
 
-    $stmt = $conn->prepare($query);
+    $stmt = $db->prepare($query);
     $stmt->bind_param("s", $category);
     $stmt->execute();
 
