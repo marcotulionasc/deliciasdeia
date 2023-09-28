@@ -2,7 +2,7 @@
 require_once 'connection.php';
 
 $query = "SELECT * FROM products WHERE active=1";
-$result = $conn->query($query);
+$result = $db->query($query);
 
 if ($result) {
     echo '<div class="row">';
