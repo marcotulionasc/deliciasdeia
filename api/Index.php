@@ -1,5 +1,5 @@
 <?php
-require_once 'db_connection.php';
+require_once 'connection.php';
 
 if (isset($_GET['category'])) {
     $category = $_GET['category'];
@@ -42,5 +42,5 @@ if (isset($_GET['category'])) {
     echo "Categoria não especificada.";
 }
 
-$conn->close();
+$db->close();
 ?>
