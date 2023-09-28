@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
 
-$query = "SELECT * FROM products WHERE active=1";
+$query = "SELECT * FROM Products WHERE active=1";
 $result = $db->query($query);
 
 if ($result) {
