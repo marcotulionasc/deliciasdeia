@@ -37,7 +37,7 @@ if (isset($_GET['category'])) {
             echo '        </div>';
             echo '    </div>';
             echo '</div>';
-            echo $row['image'];
+            echo $imagePath['image'];
         }
         echo '</div>';
     } else {
