@@ -10,15 +10,20 @@ if (isset($_GET['category'])) {
     $stmt->bind_param("s", $category);
     $stmt->execute();
 
+    $imageFolderPath = 'img/products/';
+
+
     $result = $stmt->get_result();
 
     header('Content-type: image/jpeg');
     if ($result->num_rows > 0) {
         echo '<div class="row">';
         while ($row = $result->fetch_assoc()) {
+            $imagePath = $imageFolderPath . $row['image'];
+
             echo '<div class="col-lg-3 col-md-6 col-sm-6">';
             echo '    <div class="product__item">';
-            echo '        <div class="product__item__pic set-bg" data-setbg="' . $row['image'] . '">';
+            echo '        <div class="product__item__pic set-bg" data-setbg="' . $imagePath . '">';
             echo '            <div class="product__label">';
             echo '                <span>' . $row['categoryName'] . '</span>';
             echo '            </div>';
