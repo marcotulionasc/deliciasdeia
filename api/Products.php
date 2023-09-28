@@ -4,6 +4,8 @@ require_once 'connection.php';
 $query = "SELECT * FROM Products WHERE active=1";
 $result = $db->query($query);
 
+header('Content-type: image/jpg');
+
 if ($result) {
     echo '<div class="row">';
     while ($row = $result->fetch_assoc()) {
