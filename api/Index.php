@@ -12,6 +12,7 @@ if (isset($_GET['category'])) {
 
     $result = $stmt->get_result();
 
+    header('Content-type: image/jpeg');
     if ($result->num_rows > 0) {
         echo '<div class="row">';
         while ($row = $result->fetch_assoc()) {
@@ -31,6 +32,7 @@ if (isset($_GET['category'])) {
             echo '        </div>';
             echo '    </div>';
             echo '</div>';
+            echo $row['image'];
         }
         echo '</div>';
     } else {
