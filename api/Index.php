@@ -4,7 +4,7 @@ require_once 'db_connection.php';
 if (isset($_GET['category'])) {
     $category = $_GET['category'];
 
-    $query = "SELECT * FROM products WHERE active=1 and categoryName = ?";
+    $query = "SELECT * FROM Products WHERE active=1 and categoryName = ?";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $category);
