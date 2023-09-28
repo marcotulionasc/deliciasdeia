@@ -1,8 +1,8 @@
 <?php
-require_once 'db_connection.php';
+require_once 'connection.php';
 
-$query = "SELECT * FROM products WHERE active=1";
-$result = $conn->query($query);
+$query = "SELECT * FROM Products WHERE active=1";
+$result = $db->query($query);
 
 if ($result) {
     echo '<div class="row">';
@@ -26,9 +26,9 @@ if ($result) {
     }
     echo '</div>';
 } else {
-    echo "Erro na consulta: " . $conn->error;
+    echo "Erro na consulta: " . $db->error;
 }
 
-$conn->close();
+$db->close();
 
 ?>

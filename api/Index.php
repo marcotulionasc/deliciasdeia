@@ -1,12 +1,12 @@
 <?php
-require_once 'db_connection.php';
+require_once 'connection.php';
 
 if (isset($_GET['category'])) {
     $category = $_GET['category'];
 
-    $query = "SELECT * FROM products WHERE active=1 and categoryName = ?";
+    $query = "SELECT * FROM Products WHERE active=1 and categoryName = ?";
 
-    $stmt = $conn->prepare($query);
+    $stmt = $db->prepare($query);
     $stmt->bind_param("s", $category);
     $stmt->execute();
 
@@ -42,5 +42,5 @@ if (isset($_GET['category'])) {
     echo "Categoria não especificada.";
 }
 
-$conn->close();
+$db->close();
 ?>

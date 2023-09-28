@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    require_once 'db_connection.php';
+    require_once 'connection.phpp';
 
     if (isset($_POST['productName']) && isset($_POST['productCategory']) && isset($_POST['productDescription']) && isset($_POST['productPrice']) && isset($_FILES['productImage'])) {
         $productName = $_POST['productName'];
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode(array("message" => "Erro ao inserir produto."));
         }
 
-        $conn->close();
+        $db->close();
     } else {
         echo json_encode(array("message" => "Todos os campos são obrigatórios."));
     }
