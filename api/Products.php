@@ -12,6 +12,7 @@ if ($result) {
         echo '<div class="col-lg-3 col-md-6 col-sm-6">';
         echo '    <div class="product__item">';
         echo '        <div class="product__item__pic set-bg" data-setbg="' . $row['image'] . '">';
+        echo '            <img src="' . $row['image'] . '" alt="teste">';
         echo '            <div class="product__label">';
         echo '                <span>' . $row['categoryName'] . '</span>';
         echo '            </div>';
