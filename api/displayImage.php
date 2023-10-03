@@ -14,7 +14,7 @@ if (isset($_GET['produto_id'])) {
     
     if ($stmt->fetch()) {
         // Define o cabeçalho Content-type para a imagem
-        header("Content-type: image/jpeg"); // Altere para o tipo de imagem correto, se necessário
+        header("Content-type: image/png"); // Altere para o tipo de imagem correto, se necessário
         echo $image;
     }
     

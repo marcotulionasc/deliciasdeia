@@ -12,7 +12,7 @@ if (isset($_GET['category'])) {
 
     $result = $stmt->get_result();
 
-    header('Content-type: image/jpeg');
+    header('Content-type: image/png');
     if ($result->num_rows > 0) {
         echo '<div class="row">';
         while ($row = $result->fetch_assoc()) {
