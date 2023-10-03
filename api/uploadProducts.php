@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    require_once 'connection.phpp';
+    require_once 'connection.php';
 
     if (isset($_POST['productName']) && isset($_POST['productCategory']) && isset($_POST['productDescription']) && isset($_POST['productPrice']) && isset($_FILES['productImage'])) {
         $productName = $_POST['productName'];
