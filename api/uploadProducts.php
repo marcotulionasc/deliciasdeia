@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $productDescription = $_POST['productDescription'];
         $productPrice = $_POST['productPrice'];
         
-        // Informações sobre a imagem
+        // Informações sobre a imagemASASD
         $image = $_FILES['productImage'];
         $imagePath = "img/" . basename($image['name']);
         
