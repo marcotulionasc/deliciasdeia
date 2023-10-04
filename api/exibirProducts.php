@@ -1,7 +1,15 @@
 <?php
 require_once 'connection.php';
 
-$sql = "SELECT * FROM Products";
+// Suponha que você tenha uma variável de sessão que armazena o ID do pedido atual
+// Essa variável de sessão pode ser definida quando o pedido é criado ou selecionado pelo usuário
+$orderId = $_SESSION['order_id']; // Certifique-se de ter essa variável definida corretamente
+
+// Consulta para obter os produtos em um pedido específico
+$sql = "SELECT P.* FROM Products P
+        INNER JOIN Order O ON P.idProduct = O.product_id
+        WHERE O.order_id = $orderId";
+
 $result = mysqli_query($db, $sql);
 
 if (mysqli_num_rows($result) > 0) {
@@ -23,10 +31,9 @@ if (mysqli_num_rows($result) > 0) {
         echo "</td>";
         echo "<td class='cart__price'>$ 30.00</td>";
         echo "<td class='cart__close'><span class='icon_close'></span></td>";
-        echo "<td><button onclick=\"adicionarAoCarrinho(" . $row['idProduct'] . ")\">Adicionar ao Carrinho</button></td>";
         echo "</tr>";
     }
 } else {
-    echo "Nenhum produto encontrado.";
+    echo "Nenhum produto encontrado no pedido.";
 }
 ?>

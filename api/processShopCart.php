@@ -1,18 +1,17 @@
 <?php
-session_start();
+require_once 'connection.php'; // Certifique-se de que a conexão com o banco de dados esteja estabelecida (variável $db)
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idProduto = $_POST["idProduto"];
 
-    // Aqui, você deve adicionar o produto ao carrinho (pode ser uma tabela no banco de dados ou uma variável de sessão)
+    // Suponha que a tabela 'Order' tenha colunas 'order_id' (auto-incremento) e 'product_id'
+    $sql = "INSERT INTO `Order` (product_id) VALUES ('$idProduto')";
 
-    // Por exemplo, adicionando-o a uma variável de sessão chamada 'carrinho':
-    if (!isset($_SESSION['carrinho'])) {
-        $_SESSION['carrinho'] = [];
+    if (mysqli_query($db, $sql)) {
+        echo json_encode(["success" => true]);
+    } else {
+        echo json_encode(["success" => false, "error" => mysqli_error($db)]);
     }
-    $_SESSION['carrinho'][] = $idProduto;
-
-    echo json_encode(["success" => true]);
 } else {
     echo json_encode(["success" => false]);
 }
