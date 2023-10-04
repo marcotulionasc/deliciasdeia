@@ -7,8 +7,8 @@ $orderId = $_SESSION['order_id']; // Certifique-se de ter essa variável definid
 
 // Consulta para obter os produtos em um pedido específico
 $sql = "SELECT P.* FROM Products P
-        INNER JOIN Order O ON P.idProduct = O.product_id
-        WHERE O.order_id = $orderId";
+        INNER JOIN OrderProducts O ON P.idProduct = O.idProduct
+        WHERE O.idOrder = $orderId";
 
 $result = mysqli_query($db, $sql);
 

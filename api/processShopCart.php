@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idProduto = $_POST["idProduto"];
 
     // Suponha que a tabela 'Order' tenha colunas 'order_id' (auto-incremento) e 'product_id'
-    $sql = "INSERT INTO `Order` (product_id) VALUES ('$idProduto')";
+    $sql = "INSERT INTO OrderProducts (idProduct) VALUES ('$idProduto')";
 
     if (mysqli_query($db, $sql)) {
         echo json_encode(["success" => true]);
