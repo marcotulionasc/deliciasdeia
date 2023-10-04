@@ -19,7 +19,7 @@ if ($result) {
         echo '            <h6><a href="#">' . $row['nameProduct'] . '</a></h6>';
         echo '            <div class="product__item__price">$' . $row['price'] . '</div>';
         echo '            <div class="cart_add">';
-        echo '                <a href="#">Pedir no Whatsapp!</a>';
+        echo "<td><button onclick=\"adicionarAoCarrinho(" . $row['idProduct'] . ")\">Adicionar ao Carrinho</button></td>";
         echo '            </div>';
         echo '        </div>';
         echo '    </div>';
