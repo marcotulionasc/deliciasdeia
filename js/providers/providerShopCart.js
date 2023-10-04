@@ -1,8 +1,8 @@
 function productClicked(idProduct) {
     $.ajax({
         url: "api/processShopCart.php",
-        method: "GET",
-        data: { idProduct: idProduct }, // Você precisa passar o ID do produto na solicitação GET
+        method: "POST", // Altere o método para "POST"
+        data: { idProduct: idProduct },
         success: function (response) {
             $("#dataShopCart").html(response);
         },
