@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idProduct = $_POST["idProduct"];
 
     // Suponha que a tabela 'Order' tenha colunas 'order_id' (auto-incremento) e 'product_id'
-    $sql = "INSERT INTO OrderProducts (idProduct) VALUES ('$orderId', '$idProduct')";
+    $sql = "INSERT INTO OrderProducts (idProduct) VALUES ('$idProduct')";
 
     if (mysqli_query($db, $sql)) {
         echo json_encode(["success" => true]);
@@ -17,12 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
-$orderId = $_SESSION['idOrder']; // Certifique-se de ter essa variável definida corretamente
-
 // Consulta para obter os produtos em um pedido específico
 $sql = "SELECT P.* FROM Products P
         INNER JOIN OrderProducts O ON P.idProduct = O.idProduct
-        WHERE O.idOrder = $orderId";
+        WHERE O.idOrder = O.idOrder";
 
 $result = mysqli_query($db, $sql);
 
