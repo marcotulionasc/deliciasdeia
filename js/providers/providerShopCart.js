@@ -1,6 +1,6 @@
 function fetchProducts() {
     $.ajax({
-        url: "api/process.php",
+        url: "api/processShopCart.php",
         method: "GET",
         data: { idProduto: idProduto }, // Você precisa passar o ID do produto na solicitação GET
         success: function (response) {
