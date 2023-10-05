@@ -41,7 +41,7 @@ if (mysqli_num_rows($result) > 0) {
         echo "</div>";
         echo "</div>";
         echo "</td>";
-        echo "<td class='cart__price'>$ 30.00</td>";
+        echo "<td class='cart__price'>R$ 30.00</td>";
         echo "<td class='cart__close'><span class='icon_close'></span></td>";
         echo "</tr>";
     }
