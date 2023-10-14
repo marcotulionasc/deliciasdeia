@@ -145,10 +145,10 @@ if (isset($_COOKIE['carrinho'])) {
                                         echo '<tr>';
                                         echo '<td class="product__cart__item">
                                                 <div class="product__cart__item__pic">
-                                                    <img src="displayImage.php?produto_id=' . $row['idProduct'] . '" alt="' . $row['nameProduct'] . '">
+                                                    <img src="displayImage.php?produto_id=' . $row['idProduct'] . '" alt="' . $row['nameProduct'] . '"style="width: 150px; height: 150px;>
                                                 </div>
                                                 <div class="product__cart__item__text">
-                                                    <h6>' . $row['nameProduct'] . '</h6>
+                                                    <h5>' . $row['nameProduct'] . '</h5>
                                                     <h5>R$ ' . $row['price'] . '</h5>
                                                 </div>
                                             </td>
@@ -195,7 +195,7 @@ if (isset($_COOKIE['carrinho'])) {
                     <div class="cart__total">
                         <h6>Total da compra</h6>
                         <ul>
-                            <li>Subtotal <span>R$ 169.50</span></li>
+                            <li>Desconto <span>R$ 00.00</span></li>
                             <li>Total <span>R$ 169.50</span></li>
                             <a href="#" class="primary-btn">Enviar pedido para whatsapp!</a>
                         </ul>
@@ -296,45 +296,68 @@ if (isset($_COOKIE['carrinho'])) {
 <script src="../js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+   
+    <script>
     // Função para atualizar o preço ao alterar a quantidade
     function updatePrice(productId, quantity) {
         const priceElement = $(`.cart__price[data-product-id="${productId}"]`);
         const productPrice = parseFloat(priceElement.data('product-price'));
         const newPrice = productPrice * quantity;
         priceElement.text(`R$ ${newPrice.toFixed(2)}`);
-        
+
         // Atualizar o preço no armazenamento local (localStorage)
         const cartData = JSON.parse(localStorage.getItem('cart')) || {};
         cartData[productId] = quantity;
         localStorage.setItem('cart', JSON.stringify(cartData));
+
+        // Após atualizar o preço, recalcule o total
+        calcularTotal();
     }
 
     // Função para remover um item do carrinho
     function removeProduct(productId) {
         // Encontre o elemento da linha do carrinho correspondente
         const cartItem = $('.cart__remove button[data-product-id="' + productId + '"]').closest('tr');
-        
+
         // Remove a linha do carrinho
         cartItem.remove();
-        
+
         // Remover o item do armazenamento local (localStorage)
         const cartData = JSON.parse(localStorage.getItem('cart')) || {};
         delete cartData[productId];
         localStorage.setItem('cart', JSON.stringify(cartData));
+
+        // Após remover o produto, recalcule o total
+        calcularTotal();
     }
 
-    // Lidar com o clique no botão "Remover"
-    $('.remove-button').click(function() {
-        const productId = $(this).data('product-id');
-        removeProduct(productId);
-    });
+    // Função para calcular o subtotal e o total do carrinho
+    function calcularTotal() {
+        let subtotal = 0;
 
-    // Função para atualizar o preço e remover o item quando a quantidade muda
+        // Loop através de cada item no carrinho
+        $('.cart__price').each(function () {
+            const price = parseFloat($(this).data('product-price'));
+            const quantity = parseInt($(this).closest('tr').find('.quantity-input').val());
+            const itemTotal = price * quantity;
+            subtotal += itemTotal;
+        });
+
+        // Atualize o subtotal e o total na página
+        $('.cart__total li:last span').text('R$ ' + subtotal.toFixed(2));
+    }
+
+    // Lidar com a mudança na quantidade
     $('.quantity-input').on('change', function () {
         const productId = $(this).data('product-id');
         const newQuantity = parseInt($(this).val());
         updatePrice(productId, newQuantity);
+    });
+
+    // Lidar com o clique no botão "Remover"
+    $('.cart__remove button').click(function () {
+        const productId = $(this).data('product-id');
+        removeProduct(productId);
     });
 
     // Recuperar o estado do carrinho do armazenamento local (localStorage)
@@ -343,13 +366,42 @@ if (isset($_COOKIE['carrinho'])) {
         const quantity = cartData[productId];
         updatePrice(productId, quantity);
     }
+
+    // Chame a função de cálculo inicial para definir o valor correto na primeira carga da página
+    calcularTotal();
+
+// Variável para controlar se o desconto já foi aplicado
+let discountApplied = false;
+
+// Função para aplicar um cupom de desconto
+function applyCoupon(couponCode) {
+    if (!discountApplied && couponCode === 'MARCO2023') { // Verifica se o desconto ainda não foi aplicado
+        // Defina aqui o valor do desconto
+        const discountAmount = 10; // Substitua pelo valor do desconto desejado
+        // Recalcule o total com o desconto
+        const subtotal = parseFloat($('.cart__total li:last span').text().replace('R$ ', ''));
+        const total = subtotal - discountAmount;
+        // Atualize o total na página
+        $('.cart__total li:first span').text('R$ ' + discountAmount);
+        $('.cart__total li:last span').text('R$ ' + total.toFixed(2));
+        // Marque o desconto como aplicado
+        discountApplied = true;
+    } else if (discountApplied) {
+        alert('O desconto já foi aplicado.');
+    } else {
+        alert('Cupom de desconto inválido');
+    }
+}
+
+// Lidar com o envio do formulário de cupom de desconto
+$('form').submit(function (e) {
+    e.preventDefault();
+    const couponCode = $('input[type="text"]').val();
+    applyCoupon(couponCode);
+});
+
+
 </script>
-
-
-
-
-
-
 
 </body>
 
