@@ -132,8 +132,11 @@ if (isset($_COOKIE['carrinho'])) {
                             </thead>
                             <tbody>
                             <?php
-
                             require_once 'connection.php';
+
+                            // Inicialize a variável da mensagem do WhatsApp fora do loop
+                            $message = 'Testando carrinho:' . PHP_EOL;
+                            $totalCompra = 0;
 
                             foreach ($carrinho as $product_id => $quantity) {
                                 // Consulta para obter o produto específico pelo ID do produto
@@ -142,10 +145,18 @@ if (isset($_COOKIE['carrinho'])) {
 
                                 if ($result) {
                                     while ($row = $result->fetch_assoc()) {
+                                        // Adicione os detalhes do produto à mensagem do WhatsApp
+                                        $message .= 'Nome: ' . $row['nameProduct'] . PHP_EOL;
+                                        $message .= 'Quantidade: ' . $quantity . PHP_EOL;
+                                        $message .= 'Preço: R$ ' . $row['price'] . PHP_EOL;
+
+                                        $totalCompra += ($row['price'] * $quantity);
+
+                                        // Resto do código para exibir o carrinho
                                         echo '<tr>';
                                         echo '<td class="product__cart__item">
                                                 <div class="product__cart__item__pic">
-                                                    <img src="displayImage.php?produto_id=' . $row['idProduct'] . '" alt="' . $row['nameProduct'] . '"style="width: 150px; height: 150px;>
+                                                    <img src="displayImage.php?produto_id=' . $row['idProduct'] . '" alt="' . $row['nameProduct'] . '" style="width: 150px; height: 150px;">
                                                 </div>
                                                 <div class="product__cart__item__text">
                                                     <h5>' . $row['nameProduct'] . '</h5>
@@ -167,7 +178,19 @@ if (isset($_COOKIE['carrinho'])) {
                                     }
                                 }
                             }
-                            ?>                        
+
+                            // Adicione o total da compra à mensagem do WhatsApp
+                            $message .= 'Total da compra: R$ ' . $totalCompra . PHP_EOL;
+
+                            // Encode a mensagem para URL
+                            $message = rawurlencode($message);
+
+                            // Construa a URL do WhatsApp com a mensagem
+                            $whatsapp_url = 'https://wa.me/5519997602293?text=' . $message;
+                            // Agora você pode usar $whatsapp_url onde desejar, como na âncora do link.
+                            ?>
+
+                    
                             </tbody>
                         </table>
                     </div>
@@ -197,8 +220,9 @@ if (isset($_COOKIE['carrinho'])) {
                         <ul>
                             <li>Desconto <span>R$ 00.00</span></li>
                             <li>Total <span>R$ 169.50</span></li>
-                            <a href="#" class="primary-btn">Enviar pedido para whatsapp!</a>
+                            <button onclick="window.open('<?php echo $whatsapp_url; ?>', '_blank');">Enviar para o whatsapp</button>
                         </ul>
+
                        
                     </div>
                 </div>
