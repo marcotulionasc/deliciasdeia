@@ -1,3 +1,12 @@
+<?php
+// Verifique se o cookie 'carrinho' existe
+if (isset($_COOKIE['carrinho'])) {
+    $carrinho = unserialize($_COOKIE['carrinho']);
+} else {
+    $carrinho = array();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -16,16 +25,18 @@
     rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="../css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="../css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
+
+    <script src="../script.js"></script>
 </head>
 
 <body>
@@ -37,7 +48,7 @@
      <div class="offcanvas-menu-wrapper">
   
          <div class="offcanvas__logo">
-             <a href="./index.html"><img src="img/logo.png" alt=""></a>
+             <a href="../index.html"><img src="../img/logo.png" alt=""></a>
          </div>
          <div id="mobile-menu-wrap"></div>
          <div class="offcanvas__option">
@@ -56,7 +67,7 @@
                             <div class="header__top__left">
                             </div>
                             <div class="header__logo">
-                                <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                                <a href="../index.html"><img src="../img/logo.png" alt=""></a>
                             </div>
                             <div class="header__top__right">
                               
@@ -72,10 +83,10 @@
                 <div class="col-lg-12">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li><a href="./index.html">Início</a></li>
-                            <li><a href="./shop.html">Loja</a></li>
-                            <li class="active"><a href="./shoping-cart.html">Carrinho</a></li>
-                            <li><a href="./contact.html">Contato</a></li>
+                            <li><a href="../index.html">Início</a></li>
+                            <li><a href="../shop.html">Loja</a></li>
+                            <li class="active"><a href="./shoping-cart.php">Carrinho</a></li>
+                            <li><a href="../contact.html">Contato</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -95,7 +106,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="breadcrumb__links">
-                        <a href="./index.html">Início</a>
+                        <a href="../index.html">Início</a>
                         <span>Carrinho</span>
                     </div>
                 </div>
@@ -120,41 +131,55 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img src="img/shop/cart/cart-1.jpg" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6>T-shirt Contrast Pocket</h6>
-                                            <h5>$98.49</h5>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 30.00</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr> -->
+                            <?php
 
-                                <div id="dataShopCart"></div>
-                                
+                            require_once 'connection.php';
+
+                            foreach ($carrinho as $product_id => $quantity) {
+                                // Consulta para obter o produto específico pelo ID do produto
+                                $query = "SELECT * FROM Products WHERE idProduct = $product_id AND active = 1";
+                                $result = $db->query($query);
+
+                                if ($result) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo '<tr>';
+                                        echo '<td class="product__cart__item">
+                                                <div class="product__cart__item__pic">
+                                                    <img src="displayImage.php?produto_id=' . $row['idProduct'] . '" alt="' . $row['nameProduct'] . '">
+                                                </div>
+                                                <div class="product__cart__item__text">
+                                                    <h6>' . $row['nameProduct'] . '</h6>
+                                                    <h5>R$ ' . $row['price'] . '</h5>
+                                                </div>
+                                            </td>
+                                            <td class="quantity__item">
+                                                <div class="quantity">
+                                                    <div>
+                                                    <input type="number" class="quantity-input" value="' . $quantity . '" data-product-id="' . $row['idProduct'] . '" style="width: 50px;">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="cart__price" data-product-id="' . $row['idProduct'] . '" data-product-price="' . $row['price'] . '">R$ ' . ($row['price'] * $quantity) . '</td>
+                                            <td class="cart__remove">
+                                            <button class="remove-button" data-product-id="' . $row['idProduct'] . '">Remover</button>
+                                        </td>';
+                                        echo '</tr>';
+                                    }
+                                }
+                            }
+                            ?>                        
                             </tbody>
                         </table>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn">
-                                <a href="#">Esqueceu de mais alguma coisa?</a>
+                                <a href="../shop.html">Mais alguma coisa?</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
-                                <a href="#"><i class="fa fa-spinner"></i> Atualizar carrinho</a>
+                                <a href="#"><i class="fa fa-whatsapp"></i> Enviar para o whatsapp!</a>
                             </div>
                         </div>
                     </div>
@@ -183,7 +208,7 @@
     <!-- Shopping Cart Section End -->
 
     <!-- Footer Section Begin -->
-    <footer class="footer set-bg" data-setbg="img/footer-bg.jpg">
+    <footer class="footer set-bg" data-setbg="../img/footer-bg.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-6">
@@ -227,9 +252,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7">
-                        <p class="copyright__text text-white"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <p class="copyright__text text-white">
                           Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Marco Nascimento
-                          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        
                       </p>
                   </div>
                   <div class="col-lg-5">
@@ -260,16 +285,55 @@
 <!-- Search End -->
 
 <!-- Js Plugins -->
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.nice-select.min.js"></script>
-<script src="js/jquery.barfiller.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/jquery.slicknav.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.nicescroll.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/providers/providerShopCart.js"></script> <!-- providerShopCart -->
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery.nice-select.min.js"></script>
+<script src="../js/jquery.barfiller.js"></script>
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/jquery.slicknav.js"></script>
+<script src="../js/owl.carousel.min.js"></script>
+<script src="../js/jquery.nicescroll.min.js"></script>
+<script src="../js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Função para atualizar o preço ao alterar a quantidade
+    function updatePrice(productId, quantity) {
+        const priceElement = $(`.cart__price[data-product-id="${productId}"]`);
+        const productPrice = parseFloat(priceElement.data('product-price'));
+        const newPrice = productPrice * quantity;
+        priceElement.text(`R$ ${newPrice.toFixed(2)}`);
+    }
+
+    // Função para remover um item do carrinho
+    function removeProduct(productId) {
+        // Encontre o elemento da linha do carrinho correspondente
+        const cartItem = $('.cart__remove button[data-product-id="' + productId + '"]').closest('tr');
+        
+        // Remove a linha do carrinho
+        cartItem.remove();
+    }
+
+    // Lidar com o clique no botão "Remover"
+    $('.remove-button').click(function() {
+        const productId = $(this).data('product-id');
+        removeProduct(productId);
+    });
+
+
+    // Função para atualizar o preço e remover o item quando a quantidade muda
+    $('.quantity-input').on('change', function () {
+        const productId = $(this).data('product-id');
+        const newQuantity = parseInt($(this).val());
+        updatePrice(productId, newQuantity);
+    });
+</script>
+
+
+
+
+
+
 </body>
 
 </html>

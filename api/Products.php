@@ -1,4 +1,11 @@
 <?php
+
+session_start();
+
+if (!isset($_SESSION['carrinho'])) {
+    $_SESSION['carrinho'] = [];
+}
+
 require_once 'connection.php';
 
 $query = "SELECT * FROM Products WHERE active=1";
@@ -19,7 +26,7 @@ if ($result) {
         echo '            <h6><a href="#">' . $row['nameProduct'] . '</a></h6>';
         echo '            <div class="product__item__price">$' . $row['price'] . '</div>';
         echo '            <div class="cart_add">';
-        echo "<td><button onclick=\"productClicked(" . $row['idProduct'] . ")\">Adicionar ao Carrinho</button></td>";
+        echo '<a href="api/addProduct.php?id=' . $row['idProduct'] . '">Adicionar ao carrinho</a>';
         echo '            </div>';
         echo '        </div>';
         echo '    </div>';

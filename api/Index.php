@@ -27,7 +27,7 @@ if (isset($_GET['category'])) {
             echo '            <h6><a href="#">' . $row['nameProduct'] . '</a></h6>';
             echo '            <div class="product__item__price">$' . $row['price'] . '</div>';
             echo '            <div class="cart_add">';
-            echo '                <a href="#">Pedir no Whatsapp!</a>';
+            echo '<button class="add-to-cart" data-product-id="' . $row['idProduct'] . '">Adicionar ao Carrinho</button>';
             echo '            </div>';
             echo '        </div>';
             echo '    </div>';

@@ -4090,3 +4090,12 @@ ol {
     display: none;
   }
 }
+
+input {
+  width: 25px; /* Ajuste a largura conforme necessário */
+  text-align: center;
+  font-size: 12px; /* Ajuste o tamanho da fonte conforme necessário */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+}
