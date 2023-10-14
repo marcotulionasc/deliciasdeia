@@ -303,6 +303,11 @@ if (isset($_COOKIE['carrinho'])) {
         const productPrice = parseFloat(priceElement.data('product-price'));
         const newPrice = productPrice * quantity;
         priceElement.text(`R$ ${newPrice.toFixed(2)}`);
+        
+        // Atualizar o preço no armazenamento local (localStorage)
+        const cartData = JSON.parse(localStorage.getItem('cart')) || {};
+        cartData[productId] = quantity;
+        localStorage.setItem('cart', JSON.stringify(cartData));
     }
 
     // Função para remover um item do carrinho
@@ -312,6 +317,11 @@ if (isset($_COOKIE['carrinho'])) {
         
         // Remove a linha do carrinho
         cartItem.remove();
+        
+        // Remover o item do armazenamento local (localStorage)
+        const cartData = JSON.parse(localStorage.getItem('cart')) || {};
+        delete cartData[productId];
+        localStorage.setItem('cart', JSON.stringify(cartData));
     }
 
     // Lidar com o clique no botão "Remover"
@@ -320,14 +330,21 @@ if (isset($_COOKIE['carrinho'])) {
         removeProduct(productId);
     });
 
-
     // Função para atualizar o preço e remover o item quando a quantidade muda
     $('.quantity-input').on('change', function () {
         const productId = $(this).data('product-id');
         const newQuantity = parseInt($(this).val());
         updatePrice(productId, newQuantity);
     });
+
+    // Recuperar o estado do carrinho do armazenamento local (localStorage)
+    const cartData = JSON.parse(localStorage.getItem('cart')) || {};
+    for (const productId in cartData) {
+        const quantity = cartData[productId];
+        updatePrice(productId, quantity);
+    }
 </script>
+
 
 
 
