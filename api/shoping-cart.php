@@ -156,7 +156,7 @@ if (isset($_COOKIE['carrinho'])) {
                                         echo '<tr>';
                                         echo '<td class="product__cart__item">
                                                 <div class="product__cart__item__pic">
-                                                    <img src="displayImage.php?produto_id=' . $row['idProduct'] . '" alt="' . $row['nameProduct'] . '" style="width: 150px; height: 150px;">
+                                                    <img src="displayImage.php?produto_id=' . $row['idProduct'] . '" alt="' . $row['nameProduct'] . '" style="width: 200px; height: 150px;">
                                                 </div>
                                                 <div class="product__cart__item__text">
                                                     <h5>' . $row['nameProduct'] . '</h5>
@@ -202,7 +202,7 @@ if (isset($_COOKIE['carrinho'])) {
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
-                                <a href="#"><i class="fa fa-whatsapp"></i> Enviar para o whatsapp!</a>
+                                <a href="<?php echo $whatsapp_url; ?>" target="_blank"><i class="fa fa-whatsapp"></i> Enviar para o WhatsApp!</a>
                             </div>
                         </div>
                     </div>
@@ -219,53 +219,47 @@ if (isset($_COOKIE['carrinho'])) {
                         <h6>Total da compra</h6>
                         <ul>
                             <li>Desconto <span>R$ 00.00</span></li>
-                            <li>Total <span>R$ 169.50</span></li>
-                            <button onclick="window.open('<?php echo $whatsapp_url; ?>', '_blank');">Enviar para o whatsapp</button>
+                            <li>Total <span>R$ 00.00</span></li>
                         </ul>
-
-                       
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- Shopping Cart Section End -->
-
-    <!-- Footer Section Begin -->
     <footer class="footer set-bg" data-setbg="../img/footer-bg.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="footer__widget">
-                        <h6>WORKING HOURS</h6>
+                        <h6>Horário de funcionamento</h6>
                         <ul>
-                            <li>Monday - Friday: 08:00 am – 08:30 pm</li>
-                            <li>Saturday: 10:00 am – 16:30 pm</li>
-                            <li>Sunday: 10:00 am – 16:30 pm</li>
+                            <li>Segunda - Sexta: 09 : 00 – 18 : 00</li>
+                            <li>Sábado: 07 : 00 – 12 : 00</li>
+                            <li>Domingo: 07 : 00 – 12 : 00</li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                            <a href="#"><img src="../img/deliciasDeiaFooter.png" alt=""></a>
                         </div>
-                        <p>Lorem ipsum dolor amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore dolore magna aliqua.</p>
+                        <p>Transformando simplicidade em doçura e momentos em memórias açucaradas, um sabor de felicidade a cada mordida.</p>
                         <div class="footer__social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
                             <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-whatsapp"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="footer__newslatter">
-                        <h6>Subscribe</h6>
-                        <p>Get latest updates and offers.</p>
+                        <h6>Inscreva-se</h6>
+                        <p>E fique ligado as nossas novidades e promoções.</p>
                         <form action="#">
-                            <input type="text" placeholder="Email">
+                            <input type="text" placeholder="Digite seu melhor e-mail!">
                             <button type="submit"><i class="fa fa-send-o"></i></button>
                         </form>
                     </div>
@@ -276,9 +270,9 @@ if (isset($_COOKIE['carrinho'])) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7">
-                        <p class="copyright__text text-white">
+                        <p class="copyright__text text-white"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                           Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Marco Nascimento
-                        
+                          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                       </p>
                   </div>
                   <div class="col-lg-5">
@@ -295,7 +289,7 @@ if (isset($_COOKIE['carrinho'])) {
         </div>
     </div>
 </footer>
-<!-- Footer Section End -->
+<!-- Footer Section End -->>
 
 <!-- Search Begin -->
 <div class="search-model">
@@ -319,9 +313,36 @@ if (isset($_COOKIE['carrinho'])) {
 <script src="../js/jquery.nicescroll.min.js"></script>
 <script src="../js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   
-    <script>
+
+<script>
+ 
+    // Aqui eu fiz uma var que controla se o desconto foi aplicado
+    let discountApplied = false;
+
+    // Função para calcular o subtotal e o total do carrinho
+    function calcularTotal() {
+        let subtotal = 0;
+
+        // Loop através de cada item no carrinho
+        $('.cart__price').each(function () {
+            const price = parseFloat($(this).data('product-price'));
+            const quantity = parseInt($(this).closest('tr').find('.quantity-input').val());
+            const itemTotal = price * quantity;
+            subtotal += itemTotal;
+        });
+
+        // Atualize o subtotal e o total na página
+        const totalElement = $('.cart__total li:last span');
+        totalElement.text('R$ ' + subtotal.toFixed(2));
+
+        if (discountApplied) {
+            const discountAmount = 10; // Substitua pelo valor do desconto desejado
+            const total = subtotal - discountAmount;
+            $('.cart__total li:first span').text('R$ ' + discountAmount);
+            totalElement.text('R$ ' + total.toFixed(2));
+        }
+    }
+
     // Função para atualizar o preço ao alterar a quantidade
     function updatePrice(productId, quantity) {
         const priceElement = $(`.cart__price[data-product-id="${productId}"]`);
@@ -338,50 +359,52 @@ if (isset($_COOKIE['carrinho'])) {
         calcularTotal();
     }
 
-    // Função para remover um item do carrinho
-    function removeProduct(productId) {
-        // Encontre o elemento da linha do carrinho correspondente
-        const cartItem = $('.cart__remove button[data-product-id="' + productId + '"]').closest('tr');
-
-        // Remove a linha do carrinho
-        cartItem.remove();
-
-        // Remover o item do armazenamento local (localStorage)
+    function applyCoupon(couponCode) {
+    if (!discountApplied && couponCode === 'MARCO2023') { // Verifica se o desconto ainda não foi aplicado
+        // Defina aqui o valor do desconto
+        const discountAmount = 10; // Substitua pelo valor do desconto desejado
+        // Recalcule o total com o desconto
+        const subtotalElement = $('.cart__total li:last span');
+        const subtotal = parseFloat(subtotalElement.text().replace('R$ ', ''));
+        const total = subtotal - discountAmount;
+        // Atualize o total na página
+        $('.cart__total li:first span').text('R$ ' + discountAmount);
+        subtotalElement.text('R$ ' + total.toFixed(2));
+        // Marque o desconto como aplicado
+        discountApplied = true;
+    } else if (discountApplied) {
+        alert('O desconto já foi aplicado.');
+    } else {
+        alert('Cupom de desconto inválido');
+    }
+}
+        // Adicione um manipulador de eventos para o botão "Remover"
+        $('.remove-button').on('click', function () {
+        const productId = $(this).data('product-id');
+        // Remova o produto do carrinho no armazenamento local (localStorage)
         const cartData = JSON.parse(localStorage.getItem('cart')) || {};
         delete cartData[productId];
         localStorage.setItem('cart', JSON.stringify(cartData));
-
-        // Após remover o produto, recalcule o total
+        
+        // Remova a linha da tabela do carrinho
+        $(this).closest('tr').remove();
+        
+        // Recalcule o total após remover o produto
         calcularTotal();
-    }
+    });
 
-    // Função para calcular o subtotal e o total do carrinho
-    function calcularTotal() {
-        let subtotal = 0;
-
-        // Loop através de cada item no carrinho
-        $('.cart__price').each(function () {
-            const price = parseFloat($(this).data('product-price'));
-            const quantity = parseInt($(this).closest('tr').find('.quantity-input').val());
-            const itemTotal = price * quantity;
-            subtotal += itemTotal;
-        });
-
-        // Atualize o subtotal e o total na página
-        $('.cart__total li:last span').text('R$ ' + subtotal.toFixed(2));
-    }
+    // Lidar com o envio do formulário de cupom de desconto
+    $('form').submit(function (e) {
+        e.preventDefault();
+        const couponCode = $('input[type="text"]').val();
+        applyCoupon(couponCode);
+    });
 
     // Lidar com a mudança na quantidade
     $('.quantity-input').on('change', function () {
         const productId = $(this).data('product-id');
         const newQuantity = parseInt($(this).val());
         updatePrice(productId, newQuantity);
-    });
-
-    // Lidar com o clique no botão "Remover"
-    $('.cart__remove button').click(function () {
-        const productId = $(this).data('product-id');
-        removeProduct(productId);
     });
 
     // Recuperar o estado do carrinho do armazenamento local (localStorage)
@@ -393,36 +416,6 @@ if (isset($_COOKIE['carrinho'])) {
 
     // Chame a função de cálculo inicial para definir o valor correto na primeira carga da página
     calcularTotal();
-
-// Variável para controlar se o desconto já foi aplicado
-let discountApplied = false;
-
-// Função para aplicar um cupom de desconto
-function applyCoupon(couponCode) {
-    if (!discountApplied && couponCode === 'MARCO2023') { // Verifica se o desconto ainda não foi aplicado
-        // Defina aqui o valor do desconto
-        const discountAmount = 10; // Substitua pelo valor do desconto desejado
-        // Recalcule o total com o desconto
-        const subtotal = parseFloat($('.cart__total li:last span').text().replace('R$ ', ''));
-        const total = subtotal - discountAmount;
-        // Atualize o total na página
-        $('.cart__total li:first span').text('R$ ' + discountAmount);
-        $('.cart__total li:last span').text('R$ ' + total.toFixed(2));
-        // Marque o desconto como aplicado
-        discountApplied = true;
-    } else if (discountApplied) {
-        alert('O desconto já foi aplicado.');
-    } else {
-        alert('Cupom de desconto inválido');
-    }
-}
-
-// Lidar com o envio do formulário de cupom de desconto
-$('form').submit(function (e) {
-    e.preventDefault();
-    const couponCode = $('input[type="text"]').val();
-    applyCoupon(couponCode);
-});
 
 
 </script>
