@@ -315,6 +315,7 @@ if (isset($_COOKIE['carrinho'])) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
+ 
     // Aqui eu fiz uma var que controla se o desconto foi aplicado
     let discountApplied = false;
 
@@ -377,6 +378,20 @@ if (isset($_COOKIE['carrinho'])) {
         alert('Cupom de desconto inválido');
     }
 }
+        // Adicione um manipulador de eventos para o botão "Remover"
+        $('.remove-button').on('click', function () {
+        const productId = $(this).data('product-id');
+        // Remova o produto do carrinho no armazenamento local (localStorage)
+        const cartData = JSON.parse(localStorage.getItem('cart')) || {};
+        delete cartData[productId];
+        localStorage.setItem('cart', JSON.stringify(cartData));
+        
+        // Remova a linha da tabela do carrinho
+        $(this).closest('tr').remove();
+        
+        // Recalcule o total após remover o produto
+        calcularTotal();
+    });
 
     // Lidar com o envio do formulário de cupom de desconto
     $('form').submit(function (e) {
@@ -401,6 +416,8 @@ if (isset($_COOKIE['carrinho'])) {
 
     // Chame a função de cálculo inicial para definir o valor correto na primeira carga da página
     calcularTotal();
+
+
 </script>
 
 </body>
