@@ -16,10 +16,10 @@ if ($db->connect_error) {
     $DB_NAME = $_ENV["DB_NAME"];
     $DB_PORT = $_ENV["DB_PORT"];
 
-    $db_server = pg_connect("host=$DB_HOST dbname=$DB_NAME user=$DB_USER password=$DB_PASSWORD port=$DB_PORT");
+    $db = new mysqli("host=$DB_HOST dbname=$DB_NAME user=$DB_USER password=$DB_PASSWORD port=$DB_PORT");
 
     if (!$db) {
-        die("Falha na conexão com o banco de dados local e com o servidor: " . pg_last_error());
+        die("Falha na conexão com o banco de dados local e com o servidor: ");
     }
 }
 
