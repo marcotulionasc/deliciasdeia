@@ -1,5 +1,6 @@
 <?php
-// Verifique se o cookie 'carrinho' existe
+// O carrinho existe, então ele guarda nos Cookies da página
+// Se não for o caso ele devolve o array
 if (isset($_COOKIE['carrinho'])) {
     $carrinho = unserialize($_COOKIE['carrinho']);
 } else {
