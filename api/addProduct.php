@@ -21,5 +21,5 @@ if (isset($_GET['id'])) {
     setcookie('carrinho', serialize($carrinho), time() + 3600, '/');
 }
 
-header('Location: ../shop.html');
+header('Location: ../shop.html'); // Retorna para a página de origem
 ?>
