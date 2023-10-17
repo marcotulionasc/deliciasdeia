@@ -401,7 +401,7 @@ if (isset($_COOKIE['carrinho'])) {
         // Adicione um manipulador de eventos para o botão "Remover"
         $('.remove-button').on('click', function () {
             const productId = $(this).data('product-id');
-            
+
             // Remova o produto do carrinho no armazenamento local (localStorage)
             const cartData = JSON.parse(localStorage.getItem('cart')) || {};
             delete cartData[productId];
