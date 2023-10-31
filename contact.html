@@ -26,11 +26,31 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js\providers\providerIndex.js"></script> 
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-    <!-- Here is a page Preloder, this implementation is optional -->
-    <!-- Page Preloder <div id="preloder"> <div class="loader"></div> </div> -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+ 
+        <div class="offcanvas__logo">
+            <a href="./index.php"><img src="img/deliciasDeiaLogo.png" alt=""></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__option">
+
+        </div>
+    </div>
+    <!-- End Logo of website -->
+
+     <!-- WhatsAPP-->
+    <a href="https://api.whatsapp.com/send?phone=+5519996062135" target="_blank" rel="noopener noreferrer" class="whatsapp-button">
+        <i class="fa fa-whatsapp"></i> 
+        <div class="tooltip">Faça seu pedido</div>
+    </a>
 
        <!-- Offcanvas Menu Begin -->
        <div class="offcanvas-menu-overlay"></div>
@@ -47,41 +67,41 @@
        <!-- Offcanvas Menu End -->
    
            <!-- Navigation -->
-     <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="header__top__inner">
-                            <div class="header__top__left">
-                            </div>
-                            <div class="header__logo">
-                                <a href="./index.php"><img src="img/logo.png" alt=""></a>
-                            </div>
-                            <div class="header__top__right">
-                              
+           <header class="header">
+            <div class="header__top">
+                <div class="container"> 
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="header__top__inner">
+                                <div class="header__top__left">
+                                </div>
+                                <div class="header__logo">
+                                    <a href="./index.php"><img src="img/deliciasDeiaLogo.png" alt="Logo delicias da deia"></a>
+                                </div>
+                                <div class="header__top__right">
+                                  
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="canvas__open"><i class="fa fa-bars"></i></div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <nav class="header__menu mobile-menu">
-                        <ul>
-                            <li ><a href="./index.html">Início</a></li>
-                            <li><a href="./shop.html">Loja</a></li>
-                            <li><a href="api/shoping-cart.php">Carrinho</a></li>
-                            <li class="active"><a href="./contact.html">Contato</a></li>
-                        </ul>
-                    </nav>
+                    <div class="canvas__open"><i class="fa fa-bars"></i></div>
                 </div>
             </div>
-        </div>
-    </header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="header__menu mobile-menu">
+                            <ul>
+                                <li class="active"><a href="./index.html">Início</a></li>
+                                <li><a href="./shop.html">Loja</a></li>
+                                <li><a href="api/shoping-cart.php">Carrinho</a></li>
+                                <li><a href="./contact.html">Contato</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
     <!-- End Navigation -->
 
     <!-- Header Section End -->
@@ -95,40 +115,39 @@
                     <div class="row d-flex justify-content-center">
                         <div class="col-lg-4 col-md-7">
                             <div class="map__inner">
-                                <h6>COlorado</h6>
+                                <h6>Campinas - SP</h6>
                                 <ul>
-                                    <li>1000 Lakepoint Dr, Frisco, CO 80443, USA</li>
-                                    <li>Sweetcake@support.com</li>
-                                    <li>+1 800-786-1000</li>
+                                    <li>Jardim Ouro Verde - Campinas SP</li>
+                                    <li>deliciasdadeia@gmail.com</li>
+                                    <li>1999696996</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="map__iframe">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10784.188505644011!2d19.053119335158936!3d47.48899529453826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1543907528304" height="300" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.3547224106637!2d-47.13692555!3d-22.973979949999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c8b61ff039769b%3A0x76b0575b7e6b98ed!2sJardim%20Ouro%20Verde%2C%20Campinas%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1698713711595!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> </div>
             </div>
             <div class="contact__address">
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="contact__address__item">
-                            <h6>san bernardino</h6>
+                            <h6>Campinas SP</h6>
                             <ul>
                                 <li>
                                     <span class="icon_pin_alt"></span>
-                                    <p>795 W 5th St, San Bernardino, CA 92410, USA</p>
+                                    <p>Rua x N y - Ouro Verde - Campinas</p>
                                 </li>
                                 <li><span class="icon_headphones"></span>
                                     <p>+1 800-786-1000</p>
                                 </li>
                                 <li><span class="icon_mail_alt"></span>
-                                    <p>Sweetcake@support.com</p>
+                                    <p>deliciasdadeia@gmail.com</p>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    <!-- <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="contact__address__item">
                             <h6>Los angeles</h6>
                             <ul>
@@ -144,8 +163,8 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    </div> -->
+                    <!-- <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="contact__address__item">
                             <h6>san bernardino</h6>
                             <ul>
@@ -161,39 +180,22 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
                     <div class="contact__text">
-                        <h3>Contact With us</h3>
+                        <h3>Fale com a gente por Whatsapp:</h3>
                         <ul>
-                            <li>Representatives or Advisors are available:</li>
-                            <li>Mon-Fri: 5:00am to 9:00pm</li>
-                            <li>Sat-Sun: 6:00am to 9:00pm</li>
+                            <li>Faça uma encomenda personalizada.</li>
+                            <li>Finalize seu pedido no whatsapp.</li>
+                            <li>Tenha um atendimento personalizado.</li>
+                            <li>Tenha um atendimento personalizado.</li>
+                            <li>Tenha um atendimento personalizado.</li>
+
                         </ul>
                         <img src="img/cake-piece.png" alt="">
                     </div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="contact__form">
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Name">
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Email">
-                                </div>
-                                <div class="col-lg-12">
-                                    <textarea placeholder="Message"></textarea>
-                                    <button type="submit" class="site-btn">Send Us</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -203,37 +205,36 @@
     <footer class="footer set-bg" data-setbg="img/footer-bg.jpg">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="footer__widget">
-                        <h6>WORKING HOURS</h6>
+                        <h6>Horário de funcionamento</h6>
                         <ul>
-                            <li>Monday - Friday: 08:00 am – 08:30 pm</li>
-                            <li>Saturday: 10:00 am – 16:30 pm</li>
-                            <li>Sunday: 10:00 am – 16:30 pm</li>
+                            <li>Segunda - Sexta: 09 : 00 – 18 : 00</li>
+                            <li>Sábado: 07 : 00 – 12 : 00</li>
+                            <li>Domingo: 07 : 00 – 12 : 00</li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                            <a href="#"><img src="img/deliciasDeiaFooter.png" alt=""></a>
                         </div>
-                        <p>Lorem ipsum dolor amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore dolore magna aliqua.</p>
+                        <p>Transformando simplicidade em doçura e momentos em memórias açucaradas, um sabor de felicidade a cada mordida.</p>
                         <div class="footer__social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
                             <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="https://api.whatsapp.com/send?phone=+5519996062135"><i class="fa fa-whatsapp"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="footer__newslatter">
-                        <h6>Subscribe</h6>
-                        <p>Get latest updates and offers.</p>
+                        <h6>Inscreva-se</h6>
+                        <p>E fique ligado as nossas novidades e promoções.</p>
                         <form action="#">
-                            <input type="text" placeholder="Email">
+                            <input type="text" placeholder="Digite seu melhor e-mail!">
                             <button type="submit"><i class="fa fa-send-o"></i></button>
                         </form>
                     </div>
@@ -245,16 +246,17 @@
                 <div class="row">
                     <div class="col-lg-7">
                         <p class="copyright__text text-white"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                          Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                          Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Delicias da Déia
                           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                       </p>
                   </div>
                   <div class="col-lg-5">
                     <div class="copyright__widget">
                         <ul>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Site Map</a></li>
+                            <li><a href="#">Politicas e privacidades</a></li>
+                            <li><a href="#">Termos e condições</a></li>
+                           
+                            <li><a href="https://api.whatsapp.com/send?phone=+5519996062135">Whatsapp</a></li>
                         </ul>
                     </div>
                 </div>
