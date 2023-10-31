@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04/09/2023 às 02:55
+-- Tempo de geração: 31/10/2023 às 15:27
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.0.28
 
@@ -29,10 +29,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `idAdmin` int(11) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `keySecurity` varchar(255) DEFAULT NULL,
-  `token` varchar(255) DEFAULT NULL
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `admin`
+--
+
+INSERT INTO `admin` (`idAdmin`, `email`, `password`) VALUES
+(1, 'seuemail@example.com', 'suasenha');
 
 -- --------------------------------------------------------
 
@@ -44,21 +50,10 @@ CREATE TABLE `products` (
   `idProduct` int(11) NOT NULL,
   `nameProduct` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
+  `image` longblob DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1,
   `categoryName` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `products`
---
-
-INSERT INTO `products` (`idProduct`, `nameProduct`, `price`, `image`, `active`, `categoryName`) VALUES
-(1, 'Bolo de Chocolate', 15.99, 'imagem_bolo_chocolate.jpg', 1, 'Bolo'),
-(2, 'Sorvete de Baunilha', 5.49, 'imagem_sorvete_baunilha.jpg', 1, 'Sorvete'),
-(3, 'Barra de Chocolate', 2.99, 'imagem_barra_chocolate.jpg', 1, 'Chocolate'),
-(4, 'Doce de Morango', 3.49, 'imagem_doce_morango.jpg', 1, 'Doces'),
-(5, 'Pastel de Carne', 4.99, 'imagem_pastel_carne.jpg', 0, 'Salgados');
 
 -- --------------------------------------------------------
 
@@ -120,13 +115,13 @@ ALTER TABLE `shoppingcart`
 -- AUTO_INCREMENT de tabela `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `products`
 --
 ALTER TABLE `products`
-  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restrições para tabelas despejadas

@@ -1,9 +1,12 @@
 <?php
 require_once 'connection.php';
 
+// Aqui ele verifica se a categoria da Match
+
 if (isset($_GET['category'])) {
     $category = $_GET['category'];
 
+// Aqui ele prepara uma consulta ao banco de dados, onde tem que ser ativo e com a categoria que vem do Front-end
     $query = "SELECT * FROM Products WHERE active=1 and categoryName = ?";
 
     $stmt = $db->prepare($query);
@@ -12,6 +15,7 @@ if (isset($_GET['category'])) {
 
     $result = $stmt->get_result();
 
+// Depois de pegar o resultado, ele devolve pro front-end já em formato HTML e também faz um looping para exibir os produtos
     if ($result->num_rows > 0) {
         echo '<div class="row">';
         while ($row = $result->fetch_assoc()) {
@@ -25,9 +29,9 @@ if (isset($_GET['category'])) {
             echo '        </div>';
             echo '        <div class="product__item__text">';
             echo '            <h6><a href="#">' . $row['nameProduct'] . '</a></h6>';
-            echo '            <div class="product__item__price">$' . $row['price'] . '</div>';
+            echo '            <div class="product__item__price">R$' . $row['price'] . '</div>';
             echo '            <div class="cart_add">';
-            echo '<a href="./shop.html">Conheça nossa loja!</a>';
+            echo '<a href="../shop.html">Conheça nossa loja!</a>';
             echo '            </div>';
             echo '        </div>';
             echo '    </div>';

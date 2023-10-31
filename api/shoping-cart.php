@@ -1,5 +1,6 @@
 <?php
-// Verifique se o cookie 'carrinho' existe
+// O carrinho existe, então ele guarda nos Cookies da página
+// Se não for o caso ele devolve o array
 if (isset($_COOKIE['carrinho'])) {
     $carrinho = unserialize($_COOKIE['carrinho']);
 } else {
@@ -20,9 +21,9 @@ if (isset($_COOKIE['carrinho'])) {
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+        rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
@@ -43,22 +44,22 @@ if (isset($_COOKIE['carrinho'])) {
     <!-- Here is a page Preloder, this implementation is optional -->
     <!-- Page Preloder <div id="preloder"> <div class="loader"></div> </div> -->
 
-     <!-- Logo of webiste -->
-     <div class="offcanvas-menu-overlay"></div>
-     <div class="offcanvas-menu-wrapper">
-  
-         <div class="offcanvas__logo">
-             <a href="../index.html"><img src="../img/logo.png" alt=""></a>
-         </div>
-         <div id="mobile-menu-wrap"></div>
-         <div class="offcanvas__option">
- 
-         </div>
-     </div>
-     <!-- End Logo of webiste -->
- 
-     <!-- Navigation shop-details -->
-     <header class="header">
+    <!-- Logo of webiste -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+
+        <div class="offcanvas__logo">
+            <a href="../index.html"><img src="../img/logo.png" alt=""></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__option">
+
+        </div>
+    </div>
+    <!-- End Logo of webiste -->
+
+    <!-- Navigation shop-details -->
+    <header class="header">
         <div class="header__top">
             <div class="container">
                 <div class="row">
@@ -70,7 +71,7 @@ if (isset($_COOKIE['carrinho'])) {
                                 <a href="../index.html"><img src="../img/logo.png" alt=""></a>
                             </div>
                             <div class="header__top__right">
-                              
+
                             </div>
                         </div>
                     </div>
@@ -131,30 +132,46 @@ if (isset($_COOKIE['carrinho'])) {
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php
-                            require_once 'connection.php';
 
-                            // Inicialize a variável da mensagem do WhatsApp fora do loop
-                            $message = 'Testando carrinho:' . PHP_EOL;
-                            $totalCompra = 0;
+                                <!-- Começo da lógica de implementação do carrinho -->
 
-                            foreach ($carrinho as $product_id => $quantity) {
-                                // Consulta para obter o produto específico pelo ID do produto
-                                $query = "SELECT * FROM Products WHERE idProduct = $product_id AND active = 1";
-                                $result = $db->query($query);
+                                <?php
+                                require_once 'connection.php';
 
-                                if ($result) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        // Adicione os detalhes do produto à mensagem do WhatsApp
-                                        $message .= 'Nome: ' . $row['nameProduct'] . PHP_EOL;
-                                        $message .= 'Quantidade: ' . $quantity . PHP_EOL;
-                                        $message .= 'Preço: R$ ' . $row['price'] . PHP_EOL;
+                                // Inicialize a variável da mensagem do WhatsApp fora do loop
+                                $message = 'Meu pedido: ' . PHP_EOL;
+                                $totalCompra = 0;
+                                $couponCode = 'MARCO2023'; // Aqui tem que ser o mesmo do JavaScript
+                                
+                                // Verifique se o código do cupom é válido
+                                if ($couponCode === 'MARCO2023') {
+                                    // Defina o valor do desconto
+                                    $discountAmount = 10; // Substitua pelo valor do desconto desejado
+                                
+                                    // Recalcule o total com o desconto
+                                    $totalCompra -= $discountAmount;
+                                } else {
+                                    echo "Erro na aplicação do desconto, cupom inválido ou expirado";
+                                }
 
-                                        $totalCompra += ($row['price'] * $quantity);
 
-                                        // Resto do código para exibir o carrinho
-                                        echo '<tr>';
-                                        echo '<td class="product__cart__item">
+                                foreach ($carrinho as $product_id => $quantity) {
+                                    // Consulta para obter o produto específico pelo ID do produto
+                                    $query = "SELECT * FROM Products WHERE idProduct = $product_id AND active = 1";
+                                    $result = $db->query($query);
+
+                                    if ($result) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            // Adicione os detalhes do produto à mensagem do WhatsApp
+                                            $message .= 'Nome: ' . $row['nameProduct'] . PHP_EOL;
+                                            $message .= 'Quantidade: ' . $quantity . PHP_EOL;
+                                            $message .= 'Preço: R$ ' . $row['price'] . PHP_EOL;
+
+                                            $totalCompra += ($row['price'] * $quantity);
+
+                                            // Código que exibe produto no carrinho
+                                            echo '<tr>';
+                                            echo '<td class="product__cart__item">
                                                 <div class="product__cart__item__pic">
                                                     <img src="displayImage.php?produto_id=' . $row['idProduct'] . '" alt="' . $row['nameProduct'] . '" style="width: 200px; height: 150px;">
                                                 </div>
@@ -174,23 +191,23 @@ if (isset($_COOKIE['carrinho'])) {
                                             <td class="cart__remove">
                                             <button class="remove-button" data-product-id="' . $row['idProduct'] . '">Remover</button>
                                         </td>';
-                                        echo '</tr>';
+                                            echo '</tr>';
+                                        }
                                     }
                                 }
-                            }
 
-                            // Adicione o total da compra à mensagem do WhatsApp
-                            $message .= 'Total da compra: R$ ' . $totalCompra . PHP_EOL;
 
-                            // Encode a mensagem para URL
-                            $message = rawurlencode($message);
+                                // Adicionando o total da compra à mensagem do WhatsApp
+                                $message .= 'Total da compra: R$ ' . $totalCompra . PHP_EOL;
 
-                            // Construa a URL do WhatsApp com a mensagem
-                            $whatsapp_url = 'https://wa.me/5519997602293?text=' . $message;
-                            // Agora você pode usar $whatsapp_url onde desejar, como na âncora do link.
-                            ?>
+                                // Encode a mensagem para URL
+                                $message = rawurlencode($message);
 
-                    
+                                // Construa a URL do WhatsApp com a mensagem
+                                $whatsapp_url = 'https://wa.me/5519997602293?text=' . $message;
+                                ?>
+
+                                <!-- Fim da lógica do carrinho -->
                             </tbody>
                         </table>
                     </div>
@@ -202,7 +219,12 @@ if (isset($_COOKIE['carrinho'])) {
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
+<<<<<<< HEAD
+                                <a href="<?php echo $whatsapp_url; ?>" target="_blank"><i class="fa fa-whatsapp"></i>
+                                    Enviar para o WhatsApp!</a>
+=======
                                 <a href="<?php echo $whatsapp_url; ?>" target="_blank"><i class="fa fa-whatsapp"></i> Enviar para o WhatsApp!</a>
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
                             </div>
                         </div>
                     </div>
@@ -245,7 +267,12 @@ if (isset($_COOKIE['carrinho'])) {
                         <div class="footer__logo">
                             <a href="#"><img src="../img/deliciasDeiaFooter.png" alt=""></a>
                         </div>
+<<<<<<< HEAD
+                        <p>Transformando simplicidade em doçura e momentos em memórias açucaradas, um sabor de
+                            felicidade a cada mordida.</p>
+=======
                         <p>Transformando simplicidade em doçura e momentos em memórias açucaradas, um sabor de felicidade a cada mordida.</p>
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
                         <div class="footer__social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
@@ -270,6 +297,11 @@ if (isset($_COOKIE['carrinho'])) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7">
+<<<<<<< HEAD
+                        <p class="copyright__text text-white">
+                            
+                            Copyright &copy; Marco Nascimento e Jaqueline Gouveia 2023
+=======
                         <p class="copyright__text text-white"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                           Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Marco Nascimento
                           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -280,28 +312,59 @@ if (isset($_COOKIE['carrinho'])) {
                         <ul>
                             <li><a href="#">Politicas e privacidades</a></li>
                             <li><a href="#">Termos e condições</a></li>
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
                            
-                            <li><a href="#">Whatsapp</a></li>
-                        </ul>
+                        </p>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="copyright__widget">
+                            <ul>
+                                <li><a href="#">Politicas e privacidades</a></li>
+                                <li><a href="#">Termos e condições</a></li>
+
+                                <li><a href="#">Whatsapp</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+    </footer>
+    <!-- Footer Section End -->>
+=======
     </div>
 </footer>
 <!-- Footer Section End -->>
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
 
-<!-- Search Begin -->
-<div class="search-model">
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <div class="search-close-switch">+</div>
-        <form class="search-model-form">
-            <input type="text" id="search-input" placeholder="Search here.....">
-        </form>
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
     </div>
-</div>
-<!-- Search End -->
+    <!-- Search End -->
 
+<<<<<<< HEAD
+    <!-- Js Plugins -->
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.nice-select.min.js"></script>
+    <script src="../js/jquery.barfiller.js"></script>
+    <script src="../js/jquery.magnific-popup.min.js"></script>
+    <script src="../js/jquery.slicknav.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/jquery.nicescroll.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Aqui eu fiz uma var que controla se o desconto foi aplicado
+        let discountApplied = false;
+=======
 <!-- Js Plugins -->
 <script src="../js/jquery-3.3.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
@@ -349,16 +412,91 @@ if (isset($_COOKIE['carrinho'])) {
         const productPrice = parseFloat(priceElement.data('product-price'));
         const newPrice = productPrice * quantity;
         priceElement.text(`R$ ${newPrice.toFixed(2)}`);
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
 
-        // Atualizar o preço no armazenamento local (localStorage)
-        const cartData = JSON.parse(localStorage.getItem('cart')) || {};
-        cartData[productId] = quantity;
-        localStorage.setItem('cart', JSON.stringify(cartData));
+        // Função para calcular o subtotal e o total do carrinho
+        function calcularTotal() {
+            let subtotal = 0;
 
-        // Após atualizar o preço, recalcule o total
-        calcularTotal();
-    }
+            // Loop através de cada item no carrinho
+            $('.cart__price').each(function () {
+                const price = parseFloat($(this).data('product-price'));
+                const quantity = parseInt($(this).closest('tr').find('.quantity-input').val());
+                const itemTotal = price * quantity;
+                subtotal += itemTotal;
+            });
 
+<<<<<<< HEAD
+            // Atualize o subtotal e o total na página
+            const totalElement = $('.cart__total li:last span');
+            totalElement.text('R$ ' + subtotal.toFixed(2));
+
+            if (discountApplied) {
+                const discountAmount = 10; // Substitua pelo valor do desconto desejado
+                const total = subtotal - discountAmount;
+                $('.cart__total li:first span').text('R$ ' + discountAmount);
+                totalElement.text('R$ ' + total.toFixed(2));
+            }
+        }
+
+        // Função para atualizar o preço ao alterar a quantidade
+        function updatePrice(productId, quantity) {
+            const priceElement = $(`.cart__price[data-product-id="${productId}"]`);
+            const productPrice = parseFloat(priceElement.data('product-price'));
+            const newPrice = productPrice * quantity;
+            priceElement.text(`R$ ${newPrice.toFixed(2)}`);
+
+            // Atualizar o preço no armazenamento local (localStorage)
+            const cartData = JSON.parse(localStorage.getItem('cart')) || {};
+            cartData[productId] = quantity;
+            localStorage.setItem('cart', JSON.stringify(cartData));
+
+            // Após atualizar o preço, recalcule o total
+            calcularTotal();
+        }
+
+        function applyCoupon(couponCode) {
+            if (!discountApplied && couponCode === 'MARCO2023') { // Verifica se o desconto ainda não foi aplicado
+                // Defina aqui o valor do desconto
+                const discountAmount = 10; // Substitua pelo valor do desconto desejado
+                // Recalcule o total com o desconto
+                const subtotalElement = $('.cart__total li:last span');
+                const subtotal = parseFloat(subtotalElement.text().replace('R$ ', ''));
+                const total = subtotal - discountAmount;
+                // Atualize o total na página
+                $('.cart__total li:first span').text('R$ ' + discountAmount);
+                subtotalElement.text('R$ ' + total.toFixed(2));
+                // Marque o desconto como aplicado
+                discountApplied = true;
+            } else if (discountApplied) {
+                alert('O desconto já foi aplicado.');
+            } else {
+                alert('Cupom de desconto inválido');
+            }
+        }
+        // Adicione um manipulador de eventos para o botão "Remover"
+        $('.remove-button').on('click', function () {
+            const productId = $(this).data('product-id');
+
+            // Remova o produto do carrinho no armazenamento local (localStorage)
+            const cartData = JSON.parse(localStorage.getItem('cart')) || {};
+            delete cartData[productId];
+            localStorage.setItem('cart', JSON.stringify(cartData));
+
+            // Remova a linha da tabela do carrinho
+            $(this).closest('tr').remove();
+
+            // Recalcule o total após remover o produto
+            calcularTotal();
+        });
+
+        // Lidar com o envio do formulário de cupom de desconto
+        $('form').submit(function (e) {
+            e.preventDefault();
+            const couponCode = $('input[type="text"]').val();
+            applyCoupon(couponCode);
+        });
+=======
     function applyCoupon(couponCode) {
     if (!discountApplied && couponCode === 'MARCO2023') { // Verifica se o desconto ainda não foi aplicado
         // Defina aqui o valor do desconto
@@ -399,14 +537,27 @@ if (isset($_COOKIE['carrinho'])) {
         const couponCode = $('input[type="text"]').val();
         applyCoupon(couponCode);
     });
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
 
-    // Lidar com a mudança na quantidade
-    $('.quantity-input').on('change', function () {
-        const productId = $(this).data('product-id');
-        const newQuantity = parseInt($(this).val());
-        updatePrice(productId, newQuantity);
-    });
+        // Lidar com a mudança na quantidade
+        $('.quantity-input').on('change', function () {
+            const productId = $(this).data('product-id');
+            const newQuantity = parseInt($(this).val());
+            updatePrice(productId, newQuantity);
+        });
 
+<<<<<<< HEAD
+        // Recuperar o estado do carrinho do armazenamento local (localStorage)
+        const cartData = JSON.parse(localStorage.getItem('cart')) || {};
+        for (const productId in cartData) {
+            const quantity = cartData[productId];
+            updatePrice(productId, quantity);
+        }
+
+        // Chame a função de cálculo inicial para definir o valor correto na primeira carga da página
+        calcularTotal();
+    </script>
+=======
     // Recuperar o estado do carrinho do armazenamento local (localStorage)
     const cartData = JSON.parse(localStorage.getItem('cart')) || {};
     for (const productId in cartData) {
@@ -419,6 +570,7 @@ if (isset($_COOKIE['carrinho'])) {
 
 
 </script>
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
 
 </body>
 
