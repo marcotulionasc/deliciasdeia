@@ -22,6 +22,6 @@ if ($db->connect_error) {
         die("Falha na conexão com o banco de dados local e com o servidor: ");
     }
 }
-
+// Esse aqui é só para ver como o tá indo meus commits
 // Agora você tem uma conexão ativa, seja com o banco de dados local ou com o servidor.
 ?>
