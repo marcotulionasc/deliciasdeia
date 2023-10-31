@@ -219,8 +219,12 @@ if (isset($_COOKIE['carrinho'])) {
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
+<<<<<<< HEAD
                                 <a href="<?php echo $whatsapp_url; ?>" target="_blank"><i class="fa fa-whatsapp"></i>
                                     Enviar para o WhatsApp!</a>
+=======
+                                <a href="<?php echo $whatsapp_url; ?>" target="_blank"><i class="fa fa-whatsapp"></i> Enviar para o WhatsApp!</a>
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
                             </div>
                         </div>
                     </div>
@@ -263,8 +267,12 @@ if (isset($_COOKIE['carrinho'])) {
                         <div class="footer__logo">
                             <a href="#"><img src="../img/deliciasDeiaFooter.png" alt=""></a>
                         </div>
+<<<<<<< HEAD
                         <p>Transformando simplicidade em doçura e momentos em memórias açucaradas, um sabor de
                             felicidade a cada mordida.</p>
+=======
+                        <p>Transformando simplicidade em doçura e momentos em memórias açucaradas, um sabor de felicidade a cada mordida.</p>
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
                         <div class="footer__social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
@@ -289,9 +297,22 @@ if (isset($_COOKIE['carrinho'])) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7">
+<<<<<<< HEAD
                         <p class="copyright__text text-white">
                             
                             Copyright &copy; Marco Nascimento e Jaqueline Gouveia 2023
+=======
+                        <p class="copyright__text text-white"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                          Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Marco Nascimento
+                          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                      </p>
+                  </div>
+                  <div class="col-lg-5">
+                    <div class="copyright__widget">
+                        <ul>
+                            <li><a href="#">Politicas e privacidades</a></li>
+                            <li><a href="#">Termos e condições</a></li>
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
                            
                         </p>
                     </div>
@@ -308,8 +329,14 @@ if (isset($_COOKIE['carrinho'])) {
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
     </footer>
     <!-- Footer Section End -->>
+=======
+    </div>
+</footer>
+<!-- Footer Section End -->>
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
 
     <!-- Search Begin -->
     <div class="search-model">
@@ -322,6 +349,7 @@ if (isset($_COOKIE['carrinho'])) {
     </div>
     <!-- Search End -->
 
+<<<<<<< HEAD
     <!-- Js Plugins -->
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
@@ -336,6 +364,55 @@ if (isset($_COOKIE['carrinho'])) {
     <script>
         // Aqui eu fiz uma var que controla se o desconto foi aplicado
         let discountApplied = false;
+=======
+<!-- Js Plugins -->
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery.nice-select.min.js"></script>
+<script src="../js/jquery.barfiller.js"></script>
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/jquery.slicknav.js"></script>
+<script src="../js/owl.carousel.min.js"></script>
+<script src="../js/jquery.nicescroll.min.js"></script>
+<script src="../js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+ 
+    // Aqui eu fiz uma var que controla se o desconto foi aplicado
+    let discountApplied = false;
+
+    // Função para calcular o subtotal e o total do carrinho
+    function calcularTotal() {
+        let subtotal = 0;
+
+        // Loop através de cada item no carrinho
+        $('.cart__price').each(function () {
+            const price = parseFloat($(this).data('product-price'));
+            const quantity = parseInt($(this).closest('tr').find('.quantity-input').val());
+            const itemTotal = price * quantity;
+            subtotal += itemTotal;
+        });
+
+        // Atualize o subtotal e o total na página
+        const totalElement = $('.cart__total li:last span');
+        totalElement.text('R$ ' + subtotal.toFixed(2));
+
+        if (discountApplied) {
+            const discountAmount = 10; // Substitua pelo valor do desconto desejado
+            const total = subtotal - discountAmount;
+            $('.cart__total li:first span').text('R$ ' + discountAmount);
+            totalElement.text('R$ ' + total.toFixed(2));
+        }
+    }
+
+    // Função para atualizar o preço ao alterar a quantidade
+    function updatePrice(productId, quantity) {
+        const priceElement = $(`.cart__price[data-product-id="${productId}"]`);
+        const productPrice = parseFloat(priceElement.data('product-price'));
+        const newPrice = productPrice * quantity;
+        priceElement.text(`R$ ${newPrice.toFixed(2)}`);
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
 
         // Função para calcular o subtotal e o total do carrinho
         function calcularTotal() {
@@ -349,6 +426,7 @@ if (isset($_COOKIE['carrinho'])) {
                 subtotal += itemTotal;
             });
 
+<<<<<<< HEAD
             // Atualize o subtotal e o total na página
             const totalElement = $('.cart__total li:last span');
             totalElement.text('R$ ' + subtotal.toFixed(2));
@@ -418,6 +496,48 @@ if (isset($_COOKIE['carrinho'])) {
             const couponCode = $('input[type="text"]').val();
             applyCoupon(couponCode);
         });
+=======
+    function applyCoupon(couponCode) {
+    if (!discountApplied && couponCode === 'MARCO2023') { // Verifica se o desconto ainda não foi aplicado
+        // Defina aqui o valor do desconto
+        const discountAmount = 10; // Substitua pelo valor do desconto desejado
+        // Recalcule o total com o desconto
+        const subtotalElement = $('.cart__total li:last span');
+        const subtotal = parseFloat(subtotalElement.text().replace('R$ ', ''));
+        const total = subtotal - discountAmount;
+        // Atualize o total na página
+        $('.cart__total li:first span').text('R$ ' + discountAmount);
+        subtotalElement.text('R$ ' + total.toFixed(2));
+        // Marque o desconto como aplicado
+        discountApplied = true;
+    } else if (discountApplied) {
+        alert('O desconto já foi aplicado.');
+    } else {
+        alert('Cupom de desconto inválido');
+    }
+}
+        // Adicione um manipulador de eventos para o botão "Remover"
+        $('.remove-button').on('click', function () {
+        const productId = $(this).data('product-id');
+        // Remova o produto do carrinho no armazenamento local (localStorage)
+        const cartData = JSON.parse(localStorage.getItem('cart')) || {};
+        delete cartData[productId];
+        localStorage.setItem('cart', JSON.stringify(cartData));
+        
+        // Remova a linha da tabela do carrinho
+        $(this).closest('tr').remove();
+        
+        // Recalcule o total após remover o produto
+        calcularTotal();
+    });
+
+    // Lidar com o envio do formulário de cupom de desconto
+    $('form').submit(function (e) {
+        e.preventDefault();
+        const couponCode = $('input[type="text"]').val();
+        applyCoupon(couponCode);
+    });
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
 
         // Lidar com a mudança na quantidade
         $('.quantity-input').on('change', function () {
@@ -426,6 +546,7 @@ if (isset($_COOKIE['carrinho'])) {
             updatePrice(productId, newQuantity);
         });
 
+<<<<<<< HEAD
         // Recuperar o estado do carrinho do armazenamento local (localStorage)
         const cartData = JSON.parse(localStorage.getItem('cart')) || {};
         for (const productId in cartData) {
@@ -436,6 +557,20 @@ if (isset($_COOKIE['carrinho'])) {
         // Chame a função de cálculo inicial para definir o valor correto na primeira carga da página
         calcularTotal();
     </script>
+=======
+    // Recuperar o estado do carrinho do armazenamento local (localStorage)
+    const cartData = JSON.parse(localStorage.getItem('cart')) || {};
+    for (const productId in cartData) {
+        const quantity = cartData[productId];
+        updatePrice(productId, quantity);
+    }
+
+    // Chame a função de cálculo inicial para definir o valor correto na primeira carga da página
+    calcularTotal();
+
+
+</script>
+>>>>>>> 4aa35154ebfc341913d3b2b060efe4a8929b4f51
 
 </body>
 
