@@ -5,7 +5,7 @@
 $hostname = "localhost"; 
 $username = "root"; 
 $password = ""; 
-$database = "deia-homolog"; 
+$database = "deia"; 
 $db = new mysqli($hostname, $username, $password, $database);
 
 if ($db->connect_error) {
