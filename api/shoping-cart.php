@@ -68,7 +68,7 @@ if (isset($_COOKIE['carrinho'])) {
                             <div class="header__top__left">
                             </div>
                             <div class="header__logo">
-                                <a href="./index.php"><img src="./img/deliciasDeiaLogo.png"
+                                <a href="../index.html"><img src="../img/deliciasDeiaLogo.png"
                                         alt="Logo delicias da deia"></a>
                             </div>
                             <div class="header__top__right">
@@ -85,10 +85,10 @@ if (isset($_COOKIE['carrinho'])) {
                 <div class="col-lg-12">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Início</a></li>
-                            <li><a href="./shop.html">Loja</a></li>
-                            <li><a href="api/shoping-cart.php">Carrinho</a></li>
-                            <li><a href="./contact.html">Contato</a></li>
+                            <li ><a href="../index.html">Início</a></li>
+                            <li><a href="../shop.html">Loja</a></li>
+                            <li class="active"><a href="shoping-cart.php">Carrinho</a></li>
+                            <li><a href="../contact.html">Contato</a></li>
                         </ul>
                     </nav>
                 </div>
