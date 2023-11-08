@@ -176,11 +176,11 @@ if (isset($_COOKIE['carrinho'])) {
                                             echo '<td class="product__cart__item">
                                                 <div class="product__cart__item__pic">
                                                     <img src="displayImage.php?produto_id=' . $row['idProduct'] . '" alt="' . $row['nameProduct'] . '" style="width: 200px; height: 150px;">
+                                                    <div class="product__cart__item__text">
+                                                    <h5 style="text-align: center;">' . $row['nameProduct'] . '</h5>
                                                 </div>
-                                                <div class="product__cart__item__text">
-                                                    <h5>' . $row['nameProduct'] . '</h5>
-                                                    <h5>R$ ' . $row['price'] . '</h5>
-                                                </div>
+                                                    </div>
+                                                
                                             </td>
                                             <td class="quantity__item">
                                                 <div class="quantity">
