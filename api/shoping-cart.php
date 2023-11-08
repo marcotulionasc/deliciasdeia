@@ -185,7 +185,7 @@ if (isset($_COOKIE['carrinho'])) {
                                             <td class="quantity__item">
                                                 <div class="quantity">
                                                     <div>
-                                                    <input type="number" class="quantity-input" value="' . $quantity . '" data-product-id="' . $row['idProduct'] . '" style="width: 50px;">
+                                                    <input type="number" class="quantity-input" value="' . $quantity . '" data-product-id="' . $row['idProduct'] . '" style="width: 50px;" min="1">
                                                     </div>
                                                 </div>
                                             </td>
@@ -333,6 +333,17 @@ if (isset($_COOKIE['carrinho'])) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
+    const quantityInput = document.querySelector(".quantity-input");
+
+    quantityInput.addEventListener("input", (event) => {
+    const value = event.target.value;
+
+    if (value <= 0) {
+        event.target.value = "";
+        alert("A quantidade deve ser maior que 0.");
+    }
+    });
+
                              
     // Aqui eu fiz uma var que controla se o desconto foi aplicado
     let discountApplied = false;
