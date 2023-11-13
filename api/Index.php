@@ -6,7 +6,7 @@ require_once 'connection.php';
 if (isset($_GET['category'])) {
     $category = $_GET['category'];
 
-    // Aqui ele prepara uma consulta ao banco de dados, onde tem que ser ativo e com a categoria que vem do Front-end
+// Aqui ele prepara uma consulta ao banco de dados, onde tem que ser ativo e com a categoria que vem do Front-end
     $query = "SELECT * FROM Products WHERE active=1 and categoryName = ?";
 
     $stmt = $db->prepare($query);
@@ -15,7 +15,7 @@ if (isset($_GET['category'])) {
 
     $result = $stmt->get_result();
 
-    // Depois de pegar o resultado, ele devolve pro front-end já em formato HTML e também faz um looping para exibir os produtos
+// Depois de pegar o resultado, ele devolve pro front-end já em formato HTML e também faz um looping para exibir os produtos
     if ($result->num_rows > 0) {
         echo '<div class="row">';
         while ($row = $result->fetch_assoc()) {

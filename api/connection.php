@@ -2,10 +2,10 @@
 //session_start();
 
 // Tenta conectar ao banco de dados local
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$database = "deia";
+$hostname = "localhost"; 
+$username = "root"; 
+$password = ""; 
+$database = "deia"; 
 $db = new mysqli($hostname, $username, $password, $database);
 
 if ($db->connect_error) {
