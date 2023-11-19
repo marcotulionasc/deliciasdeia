@@ -49,7 +49,9 @@ if ($result) {
     // Adiciona links de navegação
     echo '<div class="pagination">';
     for ($i = 1; $i <= $totalPaginas; $i++) {
-        echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
+        // Adiciona os parâmetros existentes na URL
+        $parametrosURL = http_build_query(array_merge($_GET, ['pagina' => $i]));
+        echo '<a href="?' . $parametrosURL . '">' . $i . '</a>';
     }
     echo '</div>';
 
