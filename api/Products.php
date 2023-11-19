@@ -16,14 +16,12 @@ if ($paginaAtual < 1) {
     $paginaAtual = 1;
 }
 
-// Consulta SQL para obter o número total de produtos ativos
 $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active = TRUE")->fetch_assoc()['total'];
 
 // Calcular o offset (deslocamento) com base na página atual
 $offset = ($paginaAtual - 1) * $itensPorPagina;
 
-// Consulta SQL para obter os produtos ativos paginados
-$query = "SELECT * FROM Products WHERE active = TRUE LIMIT $offset, $itensPorPagina";
+$query = "SELECT * FROM Products WHERE active = 1 LIMIT $offset, $itensPorPagina";
 $result = $db->query($query);
 
 // Verifica se a consulta foi bem-sucedida
@@ -63,7 +61,5 @@ if ($result) {
     echo "Erro na consulta: " . $db->error;
 }
 
-// Fecha a conexão com o banco de dados
-$stmt->close();
 $db->close();
 ?>
