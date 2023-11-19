@@ -11,8 +11,6 @@ $itensPorPagina = 8;
 // Página atual (padrão para 1 se não for definido)
  = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 
-var_dump($paginaAtual);
-
 // Garante que a página atual não seja menor que 1
 $paginaAtual = max(1, $paginaAtual);
 
