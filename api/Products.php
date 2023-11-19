@@ -52,7 +52,7 @@ if ($result) {
     $totalPaginas = ceil($totalProdutos / $itensPorPagina);
 
     // Adiciona links de navegação
-    echo '<div class="pagination">';
+    echo '<div class="shop__pagination">';
     for ($i = 1; $i <= $totalPaginas; $i++) {
         // Adiciona os parâmetros existentes na URL
         $parametrosURL = http_build_query(array_merge($_GET, ['pagina' => $i]));
