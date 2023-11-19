@@ -48,7 +48,7 @@ if ($result) {
     echo '</div>';
 
     // Calcula o número total de produtos após a consulta
-    $totalProdutos = $result->num_rows; // Use o número de linhas retornadas pela consulta
+    $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active=1")->fetch_assoc()['total'];
     $totalPaginas = ceil($totalProdutos / $itensPorPagina);
 
     // Adiciona links de navegação
