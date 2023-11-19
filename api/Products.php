@@ -21,7 +21,7 @@ $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active
 // Calcular o offset (deslocamento) com base na página atual
 $offset = ($paginaAtual - 1) * $itensPorPagina;
 
-$query = "SELECT * FROM Products WHERE active = 1 LIMIT $offset, $itensPorPagina";
+$query = "SELECT * FROM Products WHERE active = 1 LIMIT $itensPorPagina OFFSET $offset";
 $result = $db->query($query);
 
 // Verifica se a consulta foi bem-sucedida
