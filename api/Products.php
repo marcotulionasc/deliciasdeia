@@ -9,7 +9,12 @@ require_once 'connection.php';
 $itensPorPagina = 8;
 
 // Página atual (padrão para 1 se não for definido)
-$paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+$paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+
+// Validar e ajustar a página atual
+if ($paginaAtual < 1) {
+    $paginaAtual = 1;
+}
 
 // Calcular o offset (deslocamento) com base na página atual
 $offset = ($paginaAtual - 1) * $itensPorPagina;
@@ -24,7 +29,7 @@ if ($result) {
     while ($row = $result->fetch_assoc()) {
         echo '<div class="col-lg-3 col-md-6 col-sm-6">';
         echo '    <div class="product__item">';
-        echo '        <div class="product__item__pic set-bg"">';
+        echo '        <div class="product__item__pic set-bg">';
         echo '            <img src="api/displayImage.php?produto_id=' . $row['idProduct'] . '" alt="' . $row['nameProduct'] . '">';
         echo '            <div class="product__label">';
         echo '                <span>' . $row['categoryName'] . '</span>';
@@ -43,7 +48,7 @@ if ($result) {
     echo '</div>';
 
     // Calcula o número total de produtos após a consulta
-    $totalProdutos = $result->num_rows;
+    $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active=1")->fetch_assoc()['total'];
     $totalPaginas = ceil($totalProdutos / $itensPorPagina);
 
     // Adiciona links de navegação
