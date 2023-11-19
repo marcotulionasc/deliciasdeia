@@ -15,7 +15,6 @@ if (isset($_GET['pagina'])) {
     $paginaAtual = 1;
 }
 
-
 // Consulta para obter o total de produtos
 $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active = TRUE")->fetch_assoc()['total'];
 
