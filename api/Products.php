@@ -9,12 +9,7 @@ require_once 'connection.php';
 $itensPorPagina = 8;
 
 // Página atual (padrão para 1 se não for definido)
-$paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 2;
-
-// Validar e ajustar a página atual
-if ($paginaAtual < 1) {
-    $paginaAtual = 1;
-}
+$paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 
 $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active = TRUE")->fetch_assoc()['total'];
 
