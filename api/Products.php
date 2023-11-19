@@ -23,11 +23,8 @@ $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active
 $offset = ($paginaAtual - 1) * $itensPorPagina;
 
 // Consulta SQL para obter os produtos ativos paginados
-$query = "SELECT * FROM Products WHERE active = TRUE LIMIT ?, ?";
-$stmt = $db->prepare($query);
-$stmt->bind_param("ii", $offset, $itensPorPagina);
-$stmt->execute();
-$result = $stmt->get_result();
+$query = "SELECT * FROM Products WHERE active = TRUE LIMIT $offset, $itensPorPagina";
+$result = $db->query($query);
 
 // Verifica se a consulta foi bem-sucedida
 if ($result) {
