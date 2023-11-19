@@ -1,22 +1,18 @@
-$(document).ready(function () {
+$(document).ready(function() {
     // Defina a função para a solicitação AJAX
-    function fetchProducts(pagina) {
+    function fetchProducts() {
         $.ajax({
-            url: "api/Products.php?pagina=" + pagina, // Correção aqui
+            url: "api/Products.php",
             method: "GET",
-            success: function (response) {
+            success: function(response) {
                 $("#dataShop").html(response);
             },
-            error: function () {
+            error: function() {
                 alert("Erro ao carregar os dados do PHP.");
             }
         });
     }
 
-    // Adiciona um ouvinte de eventos aos links de paginação
-    $(document).on("click", ".pagination a", function (e) {
-        e.preventDefault();
-        var pagina = $(this).attr("href").split("=")[1];
-        fetchProducts(pagina);
-    });
+    // Chame a função para disparar a solicitação AJAX
+    fetchProducts();
 });
