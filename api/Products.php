@@ -7,7 +7,19 @@ if (!isset($_SESSION['carrinho'])) {
 }
 require_once 'connection.php';
 // Aqui consultamos os produtos ativos diretmante do banco de dados
-$query = "SELECT * FROM Products WHERE active=1";
+
+// Número de itens por página
+$itensPorPagina = 8;
+
+// Página atual (padrão para 1 se não for definido)
+$paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+
+// Calcular o offset (deslocamento) com base na página atual
+$offset = ($paginaAtual - 1) * $itensPorPagina;
+
+
+$query = "SELECT * FROM Products WHERE active=1 LIMIT $itensPorPagina OFFSET $offset";
+
 $result = $db->query($query);
 // E devolvemos para o front-end já em HTML o que a gente conseguiu filtrar no banco de dados
 if ($result) {
@@ -32,6 +44,15 @@ if ($result) {
         echo '</div>';
     }
     echo '</div>';
+
+        // Adiciona links de navegação
+        echo '<div class="pagination">';
+        for ($i = 1; $i <= $totalPaginas; $i++) {
+            echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
+        }
+        echo '</div>';
+
+
 } else {
     echo "Erro na consulta: " . $db->error;
 }

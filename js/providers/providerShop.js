@@ -1,8 +1,8 @@
 $(document).ready(function() {
     // Defina a função para a solicitação AJAX
-    function fetchProducts() {
+    function fetchProducts(pagina) {
         $.ajax({
-            url: "api/Products.php",
+            url: "api/Products.php" + pagina,
             method: "GET",
             success: function(response) {
                 $("#dataShop").html(response);
@@ -13,6 +13,10 @@ $(document).ready(function() {
         });
     }
 
-    // Chame a função para disparar a solicitação AJAX
-    fetchProducts();
+    // Adiciona um ouvinte de eventos aos links de paginação
+    $('.pagination a').click(function(e){
+        e.preventDefault();
+        var pagina = $(this).attr('href').split('=')[1];
+        fetchProducts(pagina);
+    });
 });
