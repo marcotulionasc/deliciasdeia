@@ -51,13 +51,12 @@ if ($result) {
     $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active=1")->fetch_assoc()['total'];
     $totalPaginas = ceil($totalProdutos / $itensPorPagina);
 
-    // Adiciona links de navegação
-    // Adiciona links de navegação
+    /// Adiciona links de navegação
     echo '<div class="shop__pagination">';
     for ($i = 1; $i <= $totalPaginas; $i++) {
-        // Obtém a string de consulta atual e adiciona/substitui o valor de 'pagina'
-        $queryString = $_SERVER['QUERY_STRING'];
-        $parametrosURL = preg_replace('/(?:^|&)pagina=\d+/', '', $queryString); // Remove 'pagina' se já estiver presente
+        // Obtém a URL completa e adiciona/substitui o valor de 'pagina'
+        $urlCompleta = $_SERVER['REQUEST_URI'];
+        $parametrosURL = preg_replace('/(?:^|&)pagina=\d+/', '', $urlCompleta); // Remove 'pagina' se já estiver presente
         $parametrosURL = http_build_query(array_merge(['pagina' => $i], $_GET));
         echo '<a href="?' . $parametrosURL . '">' . $i . '</a>';
     }
