@@ -17,6 +17,10 @@ $paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 // Calcular o offset (deslocamento) com base na página atual
 $offset = ($paginaAtual - 1) * $itensPorPagina;
 
+// Calcula o número total de páginas
+$totalProdutos = $result->num_rows;
+$totalPaginas = ceil($totalProdutos / $itensPorPagina);
+
 
 $query = "SELECT * FROM Products WHERE active=1 LIMIT $itensPorPagina OFFSET $offset";
 
