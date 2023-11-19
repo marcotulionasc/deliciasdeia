@@ -9,7 +9,9 @@ require_once 'connection.php';
 $itensPorPagina = 8;
 
 // Página atual (padrão para 1 se não for definido)
-$paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+ = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+
+var_dump($paginaAtual);
 
 // Garante que a página atual não seja menor que 1
 $paginaAtual = max(1, $paginaAtual);
@@ -59,7 +61,7 @@ if ($result) {
     for ($i = 1; $i <= $totalPaginas; $i++) {
         // Adiciona os parâmetros existentes na URL
         $parametrosURL = http_build_query(array_merge($_GET, ['pagina' => $i]));
-        echo '<a href="?' . $parametrosURL . '">' . $i . '</a>';
+        echo '<a href="?' . htmlentities($parametrosURL, ENT_QUOTES, 'UTF-8') . '">' . $i . '</a>';
     }
     echo '</div>';
 
