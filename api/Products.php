@@ -9,10 +9,7 @@ require_once 'connection.php';
 $itensPorPagina = 8;
 
 // Página atual (padrão para 1 se não for definido)
- = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-
-// Garante que a página atual não seja menor que 1
-$paginaAtual = max(1, $paginaAtual);
+$paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 
 // Consulta para obter o total de produtos
 $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active = TRUE")->fetch_assoc()['total'];
@@ -20,11 +17,14 @@ $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active
 // Calcula o número total de páginas
 $totalPaginas = ceil($totalProdutos / $itensPorPagina);
 
-// Garante que a página atual não seja maior que o total de páginas
-$paginaAtual = min($paginaAtual, $totalPaginas);
-
 // Calcular o offset (deslocamento) com base na página atual
 $offset = ($paginaAtual - 1) * $itensPorPagina;
+
+if ($offset > 8) {
+    $paginaAtual = 2;
+} else if ($paginaAtual > 9 && $paginaAtual <= 17) {
+    $paginaAtual = 3;
+}
 
 // Consulta para obter os produtos da página atual
 $query = "SELECT * FROM Products WHERE active = 1 LIMIT $itensPorPagina OFFSET $offset";
@@ -59,7 +59,7 @@ if ($result) {
     for ($i = 1; $i <= $totalPaginas; $i++) {
         // Adiciona os parâmetros existentes na URL
         $parametrosURL = http_build_query(array_merge($_GET, ['pagina' => $i]));
-        echo '<a href="?' . htmlentities($parametrosURL, ENT_QUOTES, 'UTF-8') . '">' . $i . '</a>';
+        echo '<a href="?' . $parametrosURL . '">' . $i . '</a>';
     }
     echo '</div>';
 
