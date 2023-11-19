@@ -11,16 +11,22 @@ $itensPorPagina = 8;
 // Página atual (padrão para 1 se não for definido)
 $paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 
-// Validar e ajustar a página atual
-if ($paginaAtual < 1) {
-    $paginaAtual = 1;
-}
+// Garante que a página atual não seja menor que 1
+$paginaAtual = max(1, $paginaAtual);
 
+// Consulta para obter o total de produtos
 $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active = TRUE")->fetch_assoc()['total'];
+
+// Calcula o número total de páginas
+$totalPaginas = ceil($totalProdutos / $itensPorPagina);
+
+// Garante que a página atual não seja maior que o total de páginas
+$paginaAtual = min($paginaAtual, $totalPaginas);
 
 // Calcular o offset (deslocamento) com base na página atual
 $offset = ($paginaAtual - 1) * $itensPorPagina;
 
+// Consulta para obter os produtos da página atual
 $query = "SELECT * FROM Products WHERE active = 1 LIMIT $itensPorPagina OFFSET $offset";
 $result = $db->query($query);
 
@@ -50,13 +56,10 @@ if ($result) {
 
     // Adiciona links de navegação
     echo '<div class="shop__pagination">';
-    for ($i = 1; $i <= ceil($totalProdutos / $itensPorPagina); $i++) {
+    for ($i = 1; $i <= $totalPaginas; $i++) {
         // Adiciona os parâmetros existentes na URL
         $parametrosURL = http_build_query(array_merge($_GET, ['pagina' => $i]));
-        // Adicione a classe "active" se a página atual for igual a $i
-        $classeAtiva = ($paginaAtual == $i) ? 'class="active"' : '';
-
-        echo '<a href="?' . $parametrosURL . '" ' . $classeAtiva . '>' . $i . '</a>';
+        echo '<a href="?' . $parametrosURL . '">' . $i . '</a>';
     }
     echo '</div>';
 
