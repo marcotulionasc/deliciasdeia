@@ -1,12 +1,9 @@
 <?php
-// Dentro de products nos já abrimos uma sessão e vê se tem um carrinho existente
-// Caso não tenha ele prepara um Array para o mesmo
 session_start();
 if (!isset($_SESSION['carrinho'])) {
     $_SESSION['carrinho'] = [];
 }
 require_once 'connection.php';
-// Aqui consultamos os produtos ativos diretmante do banco de dados
 
 // Número de itens por página
 $itensPorPagina = 8;
@@ -17,15 +14,11 @@ $paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 // Calcular o offset (deslocamento) com base na página atual
 $offset = ($paginaAtual - 1) * $itensPorPagina;
 
-// Calcula o número total de páginas
-$totalProdutos = $result->num_rows;
-$totalPaginas = ceil($totalProdutos / $itensPorPagina);
-
-
+// Consulta SQL para obter os produtos ativos paginados
 $query = "SELECT * FROM Products WHERE active=1 LIMIT $itensPorPagina OFFSET $offset";
-
 $result = $db->query($query);
-// E devolvemos para o front-end já em HTML o que a gente conseguiu filtrar no banco de dados
+
+// Verifica se a consulta foi bem-sucedida
 if ($result) {
     echo '<div class="row">';
     while ($row = $result->fetch_assoc()) {
@@ -49,18 +42,21 @@ if ($result) {
     }
     echo '</div>';
 
-        // Adiciona links de navegação
-        echo '<div class="pagination">';
-        for ($i = 1; $i <= $totalPaginas; $i++) {
-            echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
-        }
-        echo '</div>';
+    // Calcula o número total de produtos após a consulta
+    $totalProdutos = $result->num_rows;
+    $totalPaginas = ceil($totalProdutos / $itensPorPagina);
 
+    // Adiciona links de navegação
+    echo '<div class="pagination">';
+    for ($i = 1; $i <= $totalPaginas; $i++) {
+        echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
+    }
+    echo '</div>';
 
 } else {
     echo "Erro na consulta: " . $db->error;
 }
 
+// Fecha a conexão com o banco de dados
 $db->close();
-
 ?>
