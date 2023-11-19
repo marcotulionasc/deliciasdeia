@@ -48,16 +48,14 @@ if ($result) {
     echo '</div>';
 
     // Calcula o número total de produtos após a consulta
-    $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active=1")->fetch_assoc()['total'];
+    $totalProdutos = $result->num_rows; // Use o número de linhas retornadas pela consulta
     $totalPaginas = ceil($totalProdutos / $itensPorPagina);
 
-    /// Adiciona links de navegação
+    // Adiciona links de navegação
     echo '<div class="shop__pagination">';
     for ($i = 1; $i <= $totalPaginas; $i++) {
-        // Obtém a URL completa e adiciona/substitui o valor de 'pagina'
-        $urlCompleta = $_SERVER['REQUEST_URI'];
-        $parametrosURL = preg_replace('/(?:^|&)pagina=\d+/', '', $urlCompleta); // Remove 'pagina' se já estiver presente
-        $parametrosURL = http_build_query(array_merge(['pagina' => $i], $_GET));
+        // Adiciona os parâmetros existentes na URL
+        $parametrosURL = http_build_query(array_merge($_GET, ['pagina' => $i]));
         echo '<a href="?' . $parametrosURL . '">' . $i . '</a>';
     }
     echo '</div>';
