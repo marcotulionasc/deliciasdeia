@@ -9,7 +9,7 @@ require_once 'connection.php';
 $itensPorPagina = 8;
 
 // Página atual (padrão para 1 se não for definido)
-$paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+$paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : $i;
 
 // Consulta para obter o total de produtos
 $totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active = TRUE")->fetch_assoc()['total'];
@@ -19,12 +19,6 @@ $totalPaginas = ceil($totalProdutos / $itensPorPagina);
 
 // Calcular o offset (deslocamento) com base na página atual
 $offset = ($paginaAtual - 1) * $itensPorPagina;
-
-if ($offset > 8) {
-    $paginaAtual = 2;
-} else if ($paginaAtual > 9 && $paginaAtual <= 17) {
-    $paginaAtual = 3;
-}
 
 // Consulta para obter os produtos da página atual
 $query = "SELECT * FROM Products WHERE active = 1 LIMIT $itensPorPagina OFFSET $offset";
