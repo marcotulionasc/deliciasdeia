@@ -10,7 +10,7 @@ $itensPorPagina = 8;
 
 // Página atual (padrão para 1 se não for definido)
 if (isset($_GET['pagina'])) {
-    $paginaAtual = (int)$_GET['pagina'];
+    $paginaAtual = $_GET['pagina'];
 } else {
     $paginaAtual = 1;
 }
