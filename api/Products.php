@@ -47,9 +47,9 @@ if ($result) {
     $totalProdutos = $result->fetch_assoc()['total'];
     $totalPaginas = ceil($totalProdutos / $produtosPorPagina);
 
-    echo '<div class="pagination">';
+    echo '<div class="shop__pagination">';
     for ($i = 1; $i <= $totalPaginas; $i++) {
-        echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
+        echo '<a href="?pagina=' . $i . '"></a>';
     }
     echo '</div>';
 } else {
