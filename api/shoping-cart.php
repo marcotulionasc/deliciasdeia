@@ -87,7 +87,7 @@ if (isset($_COOKIE['carrinho'])) {
                     <nav class="header__menu mobile-menu">
                         <ul>
                             <li ><a href="../index.html">Início</a></li>
-                            <li><a href="../shop.html">Loja</a></li>
+                            <li><a href="Products.php?pagina=1">Loja</a></li>
                             <li class="active"><a href="shoping-cart.php">Carrinho</a></li>
                             <li><a href="../contact.html">Contato</a></li>
                         </ul>
@@ -185,7 +185,7 @@ if (isset($_COOKIE['carrinho'])) {
                                             <td class="quantity__item">
                                                 <div class="quantity">
                                                     <div>
-                                                    <input type="number" class="quantity-input" value="' . $quantity . '" data-product-id="' . $row['idProduct'] . '" style="width: 50px;" min="1">
+                                                    <input type="number" class="quantity-input" value="' . $quantity . '" data-product-id="' . $row['idProduct'] . '" style="width: 50px;" min="1" max="20">
                                                     </div>
                                                 </div>
                                             </td>
@@ -229,9 +229,9 @@ if (isset($_COOKIE['carrinho'])) {
                 </div>
                 <div class="col-lg-4">
                     <div class="cart__discount">
-                        <h6>Códigos para desconto</h6>
+                        <h6>Cupons para desconto</h6>
                         <form action="#">
-                            <input type="text" placeholder="Coupon code">
+                            <input type="text" placeholder="Insira seu cupom!">
                             <button type="submit">Aplicar</button>
                         </form>
                     </div>
@@ -339,7 +339,7 @@ if (isset($_COOKIE['carrinho'])) {
     const value = event.target.value;
 
     if (value <= 0) {
-        event.target.value = "";
+        event.target.value = "0";
         alert("A quantidade deve ser maior que 0.");
     }
     });

@@ -115,17 +115,8 @@
                 <div class="row">
                     <div class="col-lg-7 col-md-7">
                         <div class="shop__option__search">
-                            <form action="#">
-                                <select id="categoria-select">
-                                    <option value="">Categorias</option>
-                                    <option value="Bolo" >Bolo</option>
-                                    <option value="Sorvete">Sorvete</option>
-                                    <option value="Chocolate" >Chocolate</option>
-                                    <option value="Doces" >Doces</option>
-                                    <option value="Salgados" >Salgados</option>
-                                    <option value="Tortas">Tortas</option>
-                                </select>
-                                <input type="text" placeholder="Pesquisar">
+                            <form action="Products.php" method="GET">
+                                <input type="text" name="q" placeholder="Pesquisar produtos">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
@@ -153,6 +144,12 @@ if (!isset($_SESSION['carrinho'])) {
 require_once 'connection.php';
 
 $produtosPorPagina = 8;
+
+// Lógica para lidar com a pesquisa
+if (isset($_GET['q'])) {
+    include 'searchProduct.php'; // Arquivo separado para a lógica de pesquisa
+    exit(); // Encerrar a execução para evitar a exibição da parte principal
+}
 
 $paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
@@ -204,7 +201,7 @@ $db->close();
     </section>
     <!-- Shop Section End -->
 
-    <footer class="footer set-bg" data-setbg="img/footer-bg.jpg">
+    <footer class="footer set-bg" data-setbg="../img/footer-bg.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-6">
@@ -220,7 +217,7 @@ $db->close();
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="#"><img src="img/deliciasDeiaFooter.png" alt=""></a>
+                            <a href="#"><img src="../img/deliciasDeiaFooter.png" alt=""></a>
                         </div>
                         <p>Transformando simplicidade em doçura e momentos em memórias açucaradas, um sabor de
                             felicidade a cada mordida.</p>
