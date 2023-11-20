@@ -5,56 +5,72 @@ if (!isset($_SESSION['carrinho'])) {
 }
 require_once 'connection.php';
 
-// Defina o número de produtos por página
-$produtosPorPagina = 8;
+/// Classe para Paginação
+class Paginacao {
+    private $db;
+    private $produtosPorPagina;
+
+    public function __construct($db, $produtosPorPagina = 8) {
+        $this->db = $db;
+        $this->produtosPorPagina = $produtosPorPagina;
+    }
+
+    public function getTotalPaginas() {
+        $query = "SELECT COUNT(*) as total FROM Products WHERE active=1";
+        $result = $this->db->query($query);
+        $totalProdutos = $result->fetch_assoc()['total'];
+        return ceil($totalProdutos / $this->produtosPorPagina);
+    }
+
+    public function getProdutosDaPagina($paginaAtual) {
+        $offset = ($paginaAtual - 1) * $this->produtosPorPagina;
+        $query = "SELECT * FROM Products WHERE active=1 LIMIT $this->produtosPorPagina OFFSET $offset";
+        $result = $this->db->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+}
+
+$paginacao = new Paginacao($db);
 
 // Obtém o número da página atual a partir do parâmetro da URL, se não estiver definido, assume a página 1
 $paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
-// Calcula o offset para a consulta SQL
-$offset = ($paginaAtual - 1) * $produtosPorPagina;
+// Obtém os produtos da página atual
+$produtos = $paginacao->getProdutosDaPagina($paginaAtual);
 
-// Consulta os produtos ativos com base na paginação
-$query = "SELECT * FROM Products WHERE active=1 LIMIT $produtosPorPagina OFFSET $offset";
-$result = $db->query($query);
-
-if ($result) {
-    echo '<div class="row">';
-    while ($row = $result->fetch_assoc()) {
-        echo '<div class="col-lg-3 col-md-6 col-sm-6">';
-        echo '    <div class="product__item">';
-        echo '        <div class="product__item__pic set-bg">';
-        echo '            <img src="api/displayImage.php?produto_id=' . $row['idProduct'] . '" alt="' . $row['nameProduct'] . '">';
-        echo '            <div class="product__label">';
-        echo '                <span>' . $row['categoryName'] . '</span>';
-        echo '            </div>';
-        echo '        </div>';
-        echo '        <div class="product__item__text">';
-        echo '            <h6><a href="#">' . $row['nameProduct'] . '</a></h6>';
-        echo '            <div class="product__item__price">R$ ' . $row['price'] . '</div>';
-        echo '            <div class="cart_add">';
-        echo '<a href="api/addProduct.php?id=' . $row['idProduct'] . '">Adicionar ao carrinho</a>';
-        echo '            </div>';
-        echo '        </div>';
-        echo '    </div>';
-        echo '</div>';
-    }
+echo '<div class="row">';
+foreach ($produtos as $row) {
+    echo '<div class="col">';
+    echo '    <div class="product__item">';
+    echo '        <div class="product__item__pic set-bg">';
+    echo '            <img src="api/displayImage.php?produto_id=' . $row['idProduct'] . '" alt="' . $row['nameProduct'] . '">';
+    echo '            <div class="product__label">';
+    echo '                <span>' . $row['categoryName'] . '</span>';
+    echo '            </div>';
+    echo '        </div>';
+    echo '        <div class="product__item__text">';
+    echo '            <h6><a href="#">' . $row['nameProduct'] . '</a></h6>';
+    echo '            <div class="product__item__price">R$' . $row['price'] . '</div>';
+    echo '            <div class="cart_add">';
+    echo '<a href="api/addProduct.php?id=' . $row['idProduct'] . '">Adicionar ao carrinho</a>';
+    echo '            </div>';
+    echo '        </div>';
+    echo '    </div>';
     echo '</div>';
-
-    // Adiciona links de paginação
-    $query = "SELECT COUNT(*) as total FROM Products WHERE active=1";
-    $result = $db->query($query);
-    $totalProdutos = $result->fetch_assoc()['total'];
-    $totalPaginas = ceil($totalProdutos / $produtosPorPagina);
-
-    echo '<div class="shop__pagination">';
-    for ($i = 1; $i <= $totalPaginas; $i++) {
-        echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
-    }
-    echo '</div>';
-} else {
-    echo "Erro na consulta: " . $db->error;
 }
+echo '</div>';
 
+// Adiciona links de paginação
+$totalPaginas = $paginacao->getTotalPaginas();
+echo '<div class="pagination">';
+for ($i = 1; $i <= $totalPaginas; $i++) {
+    echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
+}
+echo '</div>';
+
+echo '</body>';
+echo '</html>';
+
+// Fecha a conexão com o banco de dados
 $db->close();
 ?>
