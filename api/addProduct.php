@@ -20,10 +20,8 @@ if (isset($_GET['id'])) {
     // Armazene o carrinho no cookie
     setcookie('carrinho', serialize($carrinho), time() + 3600, '/');
 }
-// Fornecer feedback de sucesso
-$message = 'Produto adicionado ao carrinho com sucesso';
 
 // Redirecionar para a página de origem com uma mensagem na URL
-header('Location: ../shop.html?message=' . urlencode($message));
+header('Location: Products.php' );
 exit();
 ?>
