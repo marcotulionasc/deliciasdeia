@@ -4,6 +4,7 @@ $(document).ready(function() {
         $.ajax({
             url: "api/Products.php",
             method: "GET",
+            data: {pagina : 2},
             success: function(response) {
                 $("#dataShop").html(response);
             },
