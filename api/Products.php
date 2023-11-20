@@ -49,7 +49,7 @@ if ($result) {
 
     echo '<div class="shop__pagination">';
     for ($i = 1; $i <= $totalPaginas; $i++) {
-        echo '<a href="?pagina=' . $paginaAtual++ . '">' . $i . '</a>';
+        echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
     }
     echo '</div>';
 } else {
