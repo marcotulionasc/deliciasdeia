@@ -8,10 +8,7 @@ require_once 'connection.php';
 // Defina o número de produtos por página
 $produtosPorPagina = 8;
 
-$paginaAtual = filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT);
-
-if ($paginaAtual === false || $paginaAtual === null || $paginaAtual < 1) {
-    $paginaAtual = 1;
+$paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
 // Calcula o offset para a consulta SQL
 $offset = ($paginaAtual - 1) * $produtosPorPagina;
