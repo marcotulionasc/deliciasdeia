@@ -152,15 +152,12 @@ if (!isset($_SESSION['carrinho'])) {
 }
 require_once 'connection.php';
 
-// Defina o número de produtos por página
 $produtosPorPagina = 8;
 
 $paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
-// Calcula o offset para a consulta SQL
 $offset = ($paginaAtual - 1) * $produtosPorPagina;
 
-// Consulta os produtos ativos com base na paginação
 $query = "SELECT * FROM Products WHERE active=1 LIMIT $produtosPorPagina OFFSET $offset";
 $result = $db->query($query);
 
@@ -187,7 +184,6 @@ if ($result) {
     }
      echo '</div>';
 
-    // Adiciona links de paginação
     $query = "SELECT COUNT(*) as total FROM Products WHERE active=1";
     $result = $db->query($query);
     $totalProdutos = $result->fetch_assoc()['total'];
