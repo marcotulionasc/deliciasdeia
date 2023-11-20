@@ -9,7 +9,7 @@ $offset = ($paginaAtual - 1) * $produtosPorPagina;
 $searchTerm = isset($_GET['q']) ? $_GET['q'] : '';
 $whereClause = $searchTerm !== '' ? "AND nameProduct LIKE '%$searchTerm%'" : "";
 
-$query = "SELECT * FROM Products WHERE active=1 $whereClause LIMIT $produtosPorPagina OFFSET $offset";
+$query = "SELECT * FROM Products WHERE active=1 $whereClause ORDER BY price ASC LIMIT $produtosPorPagina OFFSET $offset";
 $result = $db->query($query);
 
 if ($result) {
@@ -35,6 +35,17 @@ if ($result) {
     }
      echo '</div>';
 
+    $query = "SELECT COUNT(*) as total FROM Products WHERE active=1";
+    $result = $db->query($query);
+    $totalProdutos = $result->fetch_assoc()['total'];
+    $totalPaginas = ceil($totalProdutos / $produtosPorPagina);
+
+    echo '<div class="shop__pagination">';
+    for ($i = 1; $i <= $totalPaginas; $i++) {
+        echo '<a href="Products.php?pagina=' . $i . '">' . $i . '</a>';
+    }
+    echo '</div>';
+    
 } else {
     echo "Erro na consulta: " . $db->error;
 }
