@@ -9,7 +9,7 @@ require_once 'connection.php';
 $produtosPorPagina = 8;
 
 // Obtém o número da página atual a partir do parâmetro da URL, se não estiver definido, assume a página 1
-$paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : $_GET['pagina'];
+$paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
 // Calcula o offset para a consulta SQL
 $offset = ($paginaAtual - 1) * $produtosPorPagina;
