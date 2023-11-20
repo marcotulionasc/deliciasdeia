@@ -5,30 +5,19 @@ if (!isset($_SESSION['carrinho'])) {
 }
 require_once 'connection.php';
 
-// Número de itens por página
-$itensPorPagina = 8;
+// Defina o número de produtos por página
+$produtosPorPagina = 8;
 
-// Página atual (padrão para 1 se não for definido)
-if (isset($_GET['pagina'])) {
-    $paginaAtual = $_GET['pagina'];
-} else {
-    $paginaAtual = 1;
-}
+// Obtém o número da página atual a partir do parâmetro da URL, se não estiver definido, assume a página 1
+$paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
-// Consulta para obter o total de produtos
-$totalProdutos = $db->query("SELECT COUNT(*) as total FROM Products WHERE active = TRUE")->fetch_assoc()['total'];
+// Calcula o offset para a consulta SQL
+$offset = ($paginaAtual - 1) * $produtosPorPagina;
 
-// Calcula o número total de páginas
-$totalPaginas = ceil($totalProdutos / $itensPorPagina);
-
-// Calcular o offset (deslocamento) com base na página atual
-$offset = ($paginaAtual - 1) * $itensPorPagina;
-
-// Consulta para obter os produtos da página atual
-$query = "SELECT * FROM Products WHERE active = 1 LIMIT $itensPorPagina OFFSET $offset";
+// Consulta os produtos ativos com base na paginação
+$query = "SELECT * FROM Products WHERE active=1 LIMIT $produtosPorPagina OFFSET $offset";
 $result = $db->query($query);
 
-// Verifica se a consulta foi bem-sucedida
 if ($result) {
     echo '<div class="row">';
     while ($row = $result->fetch_assoc()) {
@@ -52,15 +41,17 @@ if ($result) {
     }
     echo '</div>';
 
-    // Adiciona links de navegação
+    // Adiciona links de paginação
+    $query = "SELECT COUNT(*) as total FROM Products WHERE active=1";
+    $result = $db->query($query);
+    $totalProdutos = $result->fetch_assoc()['total'];
+    $totalPaginas = ceil($totalProdutos / $produtosPorPagina);
+
     echo '<div class="shop__pagination">';
     for ($i = 1; $i <= $totalPaginas; $i++) {
-        // Adiciona os parâmetros existentes na URL
-        $parametrosURL = http_build_query(array_merge($_GET, ['pagina' => $i]));
-        echo '<a href="?' . $parametrosURL . '">' . $i . '</a>';
+        echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
     }
     echo '</div>';
-
 } else {
     echo "Erro na consulta: " . $db->error;
 }
