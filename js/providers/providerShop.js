@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // Defina a função para a solicitação AJAX
+     
     function fetchProducts() {
         $.ajax({
             url: "api/Products.php",
@@ -13,6 +13,5 @@ $(document).ready(function() {
         });
     }
 
-    // Chame a função para disparar a solicitação AJAX
     fetchProducts();
 });

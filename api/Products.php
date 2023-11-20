@@ -11,8 +11,7 @@ $produtosPorPagina = 8;
 $paginaAtual = filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT);
 
 if ($paginaAtual === false || $paginaAtual === null || $paginaAtual < 1) {
-    $paginaAtual = 1; // Se o valor não for válido, assume a página 1
-}
+    $paginaAtual = 1;
 
 // Calcula o offset para a consulta SQL
 $offset = ($paginaAtual - 1) * $produtosPorPagina;
