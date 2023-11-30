@@ -1136,7 +1136,7 @@ ol {
   font-weight: 600;
   text-transform: uppercase;
 }
-.product__item__text{
+.product__item__text .product__item__price {
   color: #111111;
   font-weight: 600;
   font-size: 16px;
@@ -4091,7 +4091,7 @@ ol {
   }
 }
 
-.product__price {
+.product__item__price {
   color: #111111;
   font-weight: 600;
   font-size: 16px;

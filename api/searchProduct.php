@@ -25,7 +25,7 @@ if ($result) {
         echo '        </div>';
         echo '        <div class="product__item__text">';
         echo '            <h6><a href="#">' . $row['nameProduct'] . '</a></h6>';
-        echo '            <div class="data-product-price">R$ ' . $row['price'] . '</div>';
+        echo '            <div class="product__item__price">R$ ' . str_replace('.', ',', $row['price']) . '</div>';
         echo '            <div class="cart_add">';
         echo '<a href="addProduct.php?id=' . $row['idProduct'] . '">Adicionar ao carrinho</a>';
         echo '            </div>';
