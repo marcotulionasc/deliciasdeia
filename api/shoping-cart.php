@@ -267,21 +267,16 @@ if (isset($_COOKIE['carrinho'])) {
                         <p>Transformando simplicidade em doçura e momentos em memórias açucaradas, um sabor de
                             felicidade a cada mordida.</p>
                         <div class="footer__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="https://api.whatsapp.com/send?phone=+5519996062135"><i class="fa fa-whatsapp"></i></a>
+                            <a href="https://www.instagram.com/delicias_deia/?igshid=MzRlODBiNWFlZA%3D%3D"><i class="fa fa-instagram"></i></a>
+                            <a href="https://wa.me/5519992516453?text=Ol%C3%A1%2C+gostaria+de+saber+mais+sobre+a+delicias+deia%21"><i class="fa fa-whatsapp"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="footer__newslatter">
-                        <h6>Inscreva-se</h6>
-                        <p>E fique ligado as nossas novidades e promoções.</p>
-                        <form action="#">
-                            <input type="text" placeholder="Digite seu melhor e-mail!">
-                            <button type="submit"><i class="fa fa-send-o"></i></button>
-                        </form>
+                        <h6>VOLTE SEMPRE!</h6>
+                        <p>Nos chame no whatsApp, é muito importante saber a sua opinião.</p>
+                    
                     </div>
                 </div>
             </div>
@@ -291,7 +286,7 @@ if (isset($_COOKIE['carrinho'])) {
                 <div class="row">
                     <div class="col-lg-7">
                         <p class="copyright__text text-white">
-                            Copyright &copy; Delicias Déia 2023
+                            Copyright &copy; Delicias da Déia
                         </p>
                     </div>
                     <div class="col-lg-5">
@@ -300,7 +295,7 @@ if (isset($_COOKIE['carrinho'])) {
                                 <li><a href="#">Politicas e privacidades</a></li>
                                 <li><a href="#">Termos e condições</a></li>
 
-                                <li><a href="#">Whatsapp</a></li>
+                                <li><a href="https://wa.me/5519992516453?text=Ol%C3%A1%2C+gostaria+de+saber+mais+sobre+a+delicias+deia%21">Whatsapp</a></li>
                             </ul>
                         </div>
                     </div>
