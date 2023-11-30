@@ -1136,7 +1136,7 @@ ol {
   font-weight: 600;
   text-transform: uppercase;
 }
-.product__item__text .product__item__price {
+.product__item__text{
   color: #111111;
   font-weight: 600;
   font-size: 16px;
@@ -4089,5 +4089,14 @@ ol {
   .checkout__order__products span {
     display: none;
   }
+}
+
+.product__price {
+  color: #111111;
+  font-weight: 600;
+  font-size: 16px;
+  -webkit-transition: all, 0.3s;
+  -o-transition: all, 0.3s;
+  transition: all, 0.3s;
 }
 
